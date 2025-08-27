@@ -160,14 +160,14 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-                 <MapView
-           ref={mapRef}
-           provider={PROVIDER_GOOGLE}
-           style={styles.map}
-           initialRegion={mapRegion}
-           showsUserLocation={false}
-           onLayout={fitToRoute}
-         >
+        <MapView
+          ref={mapRef}
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          initialRegion={mapRegion}
+          showsUserLocation={false}
+          onLayout={fitToRoute}
+        >
           {/* Polyline showing full route */}
           <Polyline
             coordinates={route.waypoints.map((wp) => wp.coordinate)}
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-    mapContainer: {
+  mapContainer: {
     flex: 1,
     height: 300,
     marginBottom: 10,

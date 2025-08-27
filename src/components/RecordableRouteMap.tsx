@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Alert, Text } from 'react-native';
-import { Button, ProgressBar, Card } from 'react-native-paper';
-import AnimatedRouteMap from './AnimatedRouteMap';
-import { VideoRecordingService } from '../services/VideoRecordingService';
-import { Route } from '../types/Route';
+import React, { useRef, useState } from "react";
+import { View, StyleSheet, Alert, Text } from "react-native";
+import { Button, ProgressBar, Card } from "react-native-paper";
+import AnimatedRouteMap from "./AnimatedRouteMap";
+import { VideoRecordingService } from "../services/VideoRecordingService";
+import { Route } from "../types/Route";
 
 interface RecordableRouteMapProps {
   route: Route;
@@ -12,18 +12,20 @@ interface RecordableRouteMapProps {
 
 const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
   route,
-  onVideoCreated
+  onVideoCreated,
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingProgress, setRecordingProgress] = useState(0);
   const [processingVideo, setProcessingVideo] = useState(false);
 
   const mapRef = useRef<View>(null);
-  const videoService = useRef(new VideoRecordingService({
-    fps: 30,
-    duration: 10,
-    quality: 0.9
-  })).current;
+  const videoService = useRef(
+    new VideoRecordingService({
+      fps: 30,
+      duration: 10,
+      quality: 0.9,
+    })
+  ).current;
 
   const startRecording = async () => {
     try {
@@ -34,9 +36,8 @@ const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
 
       // Start animation with frame capture
       simulateRecordingAnimation();
-
     } catch (error) {
-      Alert.alert('Recording Error', 'Failed to start recording');
+      Alert.alert("Recording Error", "Failed to start recording");
       setIsRecording(false);
     }
   };
@@ -56,7 +57,7 @@ const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
       setRecordingProgress((i + 1) / totalFrames);
 
       // Wait for next frame
-      await new Promise(resolve => setTimeout(resolve, 33)); // ~30fps
+      await new Promise((resolve) => setTimeout(resolve, 33)); // ~30fps
     }
 
     await finishRecording();
@@ -79,15 +80,14 @@ const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
       setProcessingVideo(false);
       setRecordingProgress(0);
 
-      Alert.alert('Success', 'Video created successfully!');
+      Alert.alert("Success", "Video created successfully!");
 
       if (onVideoCreated) {
         onVideoCreated(videoUri);
       }
-
     } catch (error) {
-      console.error('Video creation failed:', error);
-      Alert.alert('Error', 'Failed to create video');
+      console.error("Video creation failed:", error);
+      Alert.alert("Error", "Failed to create video");
       setIsRecording(false);
       setProcessingVideo(false);
     }
@@ -97,7 +97,7 @@ const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
     // Disable frame capture for now as it requires further setup
     console.log("Frame capture requested:", frameData);
     return;
-    
+
     // Original code - disabled
     // if (isRecording && mapRef.current) {
     //   await videoService.captureFrame(mapRef.current, frameData.index);
@@ -150,11 +150,13 @@ const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
             <Button
               mode="contained"
               onPress={startRecording}
-              disabled={isRecording || processingVideo || route.waypoints.length < 2}
+              disabled={
+                isRecording || processingVideo || route.waypoints.length < 2
+              }
               style={styles.recordButton}
               icon="video"
             >
-              {isRecording ? 'Recording...' : 'Start Recording'}
+              {isRecording ? "Recording..." : "Start Recording"}
             </Button>
 
             {isRecording && (
@@ -171,9 +173,8 @@ const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
 
           <Text style={styles.infoText}>
             {route.waypoints.length < 2
-              ? 'Add at least 2 waypoints to record'
-              : `Ready to record ${route.waypoints.length} waypoints`
-            }
+              ? "Add at least 2 waypoints to record"
+              : `Ready to record ${route.waypoints.length} waypoints`}
           </Text>
         </Card.Content>
       </Card>
@@ -194,20 +195,20 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   recordingIndicator: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 16,
   },
   recordingDot: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: '#FF0000',
+    backgroundColor: "#FF0000",
     marginRight: 8,
   },
   recordingText: {
-    color: '#FF0000',
-    fontWeight: 'bold',
+    color: "#FF0000",
+    fontWeight: "bold",
   },
   progressContainer: {
     marginBottom: 16,
@@ -221,8 +222,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginBottom: 16,
   },
   recordButton: {
@@ -234,8 +235,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   infoText: {
-    textAlign: 'center',
-    color: '#666',
+    textAlign: "center",
+    color: "#666",
     fontSize: 12,
   },
 });

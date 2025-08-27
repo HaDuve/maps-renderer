@@ -1,31 +1,36 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Text, Platform } from 'react-native';
-import { Provider as PaperProvider, Appbar, BottomNavigation, DefaultTheme } from 'react-native-paper';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-import { enableLatestRenderer } from 'react-native-maps';
+import React, { useState, useRef, useEffect } from "react";
+import { View, StyleSheet, ScrollView, Text, Platform } from "react-native";
+import {
+  Provider as PaperProvider,
+  Appbar,
+  BottomNavigation,
+  DefaultTheme,
+} from "react-native-paper";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { enableLatestRenderer } from "react-native-maps";
 
 // Import components
-import RouteInputForm from './src/components/RouteInputForm';
-import WaypointManager from './src/components/WaypointManager';
-import RecordableRouteMap from './src/components/RecordableRouteMap';
-import VideoExportComponent from './src/components/VideoExportComponent';
+import RouteInputForm from "./src/components/RouteInputForm";
+import WaypointManager from "./src/components/WaypointManager";
+import RecordableRouteMap from "./src/components/RecordableRouteMap";
+import VideoExportComponent from "./src/components/VideoExportComponent";
 
 // Import types
-import { Route, Waypoint } from './src/types/Route';
+import { Route, Waypoint } from "./src/types/Route";
 
 // Create a custom theme
 const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#FF6B35',
-    accent: '#4CA5FF',
+    primary: "#FF6B35",
+    accent: "#4CA5FF",
   },
 };
 
 // Enable latest renderer for Google Maps
-if (Platform.OS === 'android') {
+if (Platform.OS === "android") {
   enableLatestRenderer();
 }
 
@@ -35,7 +40,7 @@ export default function App() {
   const [index, setIndex] = useState(0);
 
   const generateId = () => Math.random().toString(36).substr(2, 9);
-  
+
   // Create a sample route for testing
   useEffect(() => {
     if (!currentRoute) {
@@ -46,27 +51,27 @@ export default function App() {
             id: generateId(),
             coordinate: { latitude: 37.7749, longitude: -122.4194 }, // San Francisco
             name: "San Francisco",
-            timestamp: Date.now()
+            timestamp: Date.now(),
           },
           {
             id: generateId(),
             coordinate: { latitude: 37.8716, longitude: -122.2727 }, // Berkeley
             name: "Berkeley",
-            timestamp: Date.now() + 1000
+            timestamp: Date.now() + 1000,
           },
           {
             id: generateId(),
             coordinate: { latitude: 37.7749, longitude: -122.2521 }, // Oakland
             name: "Oakland",
-            timestamp: Date.now() + 2000
-          }
+            timestamp: Date.now() + 2000,
+          },
         ],
         metadata: {
           name: "Bay Area Tour",
           description: "Sample route around the Bay Area",
           createdAt: Date.now(),
-          updatedAt: Date.now()
-        }
+          updatedAt: Date.now(),
+        },
       };
       setCurrentRoute(sampleRoute as any);
     }
@@ -80,7 +85,7 @@ export default function App() {
       ...routeData,
       metadata: {
         ...(routeData.metadata || {}),
-      }
+      },
     } as Route;
 
     setCurrentRoute(newRoute);
@@ -88,7 +93,7 @@ export default function App() {
     setIndex(0);
   };
 
-  const handleAddWaypoint = (waypointData: Omit<Waypoint, 'id'>) => {
+  const handleAddWaypoint = (waypointData: Omit<Waypoint, "id">) => {
     if (!currentRoute) return;
 
     const newWaypoint: Waypoint = {
@@ -107,16 +112,19 @@ export default function App() {
 
     setCurrentRoute({
       ...currentRoute,
-      waypoints: currentRoute.waypoints.filter(wp => wp.id !== waypointId),
+      waypoints: currentRoute.waypoints.filter((wp) => wp.id !== waypointId),
     });
   };
 
-  const handleUpdateWaypoint = (waypointId: string, updates: Partial<Waypoint>) => {
+  const handleUpdateWaypoint = (
+    waypointId: string,
+    updates: Partial<Waypoint>
+  ) => {
     if (!currentRoute) return;
 
     setCurrentRoute({
       ...currentRoute,
-      waypoints: currentRoute.waypoints.map(wp =>
+      waypoints: currentRoute.waypoints.map((wp) =>
         wp.id === waypointId ? { ...wp, ...updates } : wp
       ),
     });
@@ -129,22 +137,22 @@ export default function App() {
 
   const routes = [
     {
-      key: 'create',
-      title: 'Create Route',
-      focusedIcon: 'map-marker-path',
-      unfocusedIcon: 'map-marker-path',
+      key: "create",
+      title: "Create Route",
+      focusedIcon: "map-marker-path",
+      unfocusedIcon: "map-marker-path",
     },
     {
-      key: 'animate',
-      title: 'Animate',
-      focusedIcon: 'play',
-      unfocusedIcon: 'play-outline',
+      key: "animate",
+      title: "Animate",
+      focusedIcon: "play",
+      unfocusedIcon: "play-outline",
     },
     {
-      key: 'export',
-      title: 'Export',
-      focusedIcon: 'share',
-      unfocusedIcon: 'share-outline',
+      key: "export",
+      title: "Export",
+      focusedIcon: "share",
+      unfocusedIcon: "share-outline",
     },
   ];
 
@@ -172,7 +180,9 @@ export default function App() {
           />
         ) : (
           <View style={styles.emptyState}>
-            <Text>Create a route with at least 2 waypoints to start animating</Text>
+            <Text>
+              Create a route with at least 2 waypoints to start animating
+            </Text>
           </View>
         )}
       </View>
@@ -217,14 +227,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-    scene: {
+  scene: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
   },
   emptyState: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
 });

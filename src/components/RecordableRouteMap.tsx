@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
-    height: 300,
+    minHeight: 400, // Increased minimum height
     marginBottom: 10,
   },
   recordingCard: {

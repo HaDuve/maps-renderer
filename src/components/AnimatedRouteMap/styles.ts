@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
-    height: 300,
+    minHeight: 400, // Increased minimum height
     marginBottom: 10,
   },
   emptyContainer: {
@@ -15,9 +15,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   map: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
+    ...StyleSheet.absoluteFillObject,
+    minHeight: 400,
   },
   currentMarker: {
     width: 20,

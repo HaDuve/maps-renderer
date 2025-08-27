@@ -3,3 +3,4 @@ export * from "./RecordableRouteMap";
 export * from "./RouteInputForm";
 export * from "./VideoExportComponent";
 export * from "./WaypointManager";
+export * from "./AnimatedRouteMapWithCapture";

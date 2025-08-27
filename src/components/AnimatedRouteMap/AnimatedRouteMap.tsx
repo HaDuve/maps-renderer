@@ -1,6 +1,6 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { View, Text, Dimensions } from "react-native";
-import { Button, Card, ProgressBar } from "react-native-paper";
+import { Button, Card, ProgressBar, IconButton } from "react-native-paper";
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import Slider from "@react-native-community/slider";
 import { TProps } from "./types";
@@ -9,7 +9,7 @@ import { styles } from "./styles";
 
 const { width: screenWidth } = Dimensions.get("window");
 
-export const AnimatedRouteMap = (props: TProps) => {
+export const AnimatedRouteMap = forwardRef((props: TProps, ref) => {
   const { route } = props;
 
   const {
@@ -24,7 +24,19 @@ export const AnimatedRouteMap = (props: TProps) => {
     startAnimation,
     fitToRoute,
     handleSliderChange,
+    // Frame capture functionality
+    frameCaptureStatus,
+    startFrameCapture,
+    stopFrameCapture,
+    getFrameCaptureDirectory,
   } = useController(props);
+
+  // Expose methods to parent component via ref
+  useImperativeHandle(ref, () => ({
+    startFrameCapture,
+    stopFrameCapture,
+    getFrameCaptureDirectory,
+  }));
 
   if (route.waypoints.length === 0) {
     return (
@@ -101,6 +113,22 @@ export const AnimatedRouteMap = (props: TProps) => {
           />
 
           {/* Control buttons */}
+          {/* Frame capture progress */}
+          {frameCaptureStatus.isCapturing && (
+            <View style={styles.progressContainer}>
+              <Text>Capturing frames: {frameCaptureStatus.framesCount}</Text>
+              <ProgressBar
+                progress={frameCaptureStatus.progress}
+                color="#4CAF50"
+                style={styles.progressBar}
+              />
+              <Text>{Math.round(frameCaptureStatus.progress * 100)}%</Text>
+              {frameCaptureStatus.error && (
+                <Text style={styles.errorText}>{frameCaptureStatus.error}</Text>
+              )}
+            </View>
+          )}
+
           <View style={styles.buttonContainer}>
             <Button
               mode="contained"
@@ -147,4 +175,7 @@ export const AnimatedRouteMap = (props: TProps) => {
       </Card>
     </View>
   );
-};
+});
+
+// Add a display name to the forwarded ref component
+AnimatedRouteMap.displayName = "AnimatedRouteMap";

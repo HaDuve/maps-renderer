@@ -1,9 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import MapView from "react-native-maps";
-import { TProps, TController } from "./types";
+import { TProps, TController, FrameCaptureStatus } from "./types";
+import {
+  FrameCaptureService,
+  FrameCaptureOptions,
+  FrameCaptureProgress,
+} from "@services/FrameCaptureService";
 
 export const useController = (props: TProps): TController => {
-  const { route, onFrameCapture, isRecording = false } = props;
+  const {
+    route,
+    onFrameCapture,
+    isRecording = false,
+    frameCaptureOptions,
+  } = props;
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,6 +28,18 @@ export const useController = (props: TProps): TController => {
   });
 
   const [progress, setProgress] = useState(0);
+  const [frameCaptureStatus, setFrameCaptureStatus] =
+    useState<FrameCaptureStatus>({
+      isCapturing: false,
+      progress: 0,
+      framesCount: 0,
+      error: null,
+    });
+
+  // Initialize the frame capture service
+  const frameCaptureServiceRef = useRef<FrameCaptureService>(
+    new FrameCaptureService(frameCaptureOptions)
+  );
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Calculate region that fits all waypoints
@@ -65,8 +87,12 @@ export const useController = (props: TProps): TController => {
       });
 
       // Trigger frame capture if recording
-      if (isRecording && onFrameCapture) {
-        onFrameCapture({ index, waypoint });
+      if (isRecording) {
+        captureFrame(index);
+
+        if (onFrameCapture) {
+          onFrameCapture({ index, waypoint });
+        }
       }
     }
   };
@@ -130,6 +156,110 @@ export const useController = (props: TProps): TController => {
     };
   }, []);
 
+  // Frame capture related methods
+  const captureFrame = async (index: number) => {
+    if (!frameCaptureStatus.isCapturing || !mapRef.current) return;
+
+    try {
+      const frameService = frameCaptureServiceRef.current;
+      const totalFrames = route.waypoints.length;
+      await frameService.captureFrame(mapRef.current, index, totalFrames);
+    } catch (error) {
+      console.error("Error capturing frame:", error);
+      setFrameCaptureStatus((prev) => ({
+        ...prev,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error during frame capture",
+      }));
+    }
+  };
+
+  const startFrameCapture = async () => {
+    try {
+      const frameService = frameCaptureServiceRef.current;
+      await frameService.startCapture();
+
+      // Set up progress tracking
+      frameService.setProgressCallback((progress: FrameCaptureProgress) => {
+        setFrameCaptureStatus((prev) => ({
+          ...prev,
+          progress: progress.percentage,
+          framesCount: progress.current,
+        }));
+      });
+
+      setFrameCaptureStatus({
+        isCapturing: true,
+        progress: 0,
+        framesCount: 0,
+        error: null,
+      });
+
+      // Capture the current frame immediately
+      captureFrame(currentIndex);
+
+      return true;
+    } catch (error) {
+      console.error("Failed to start frame capture:", error);
+      setFrameCaptureStatus({
+        isCapturing: false,
+        progress: 0,
+        framesCount: 0,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error starting frame capture",
+      });
+      return false;
+    }
+  };
+
+  const stopFrameCapture = async () => {
+    try {
+      const frameService = frameCaptureServiceRef.current;
+      const frames = await frameService.stopCapture();
+
+      setFrameCaptureStatus((prev) => ({
+        ...prev,
+        isCapturing: false,
+        framesCount: frames.length,
+      }));
+
+      return frames;
+    } catch (error) {
+      console.error("Failed to stop frame capture:", error);
+      setFrameCaptureStatus((prev) => ({
+        ...prev,
+        isCapturing: false,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error stopping frame capture",
+      }));
+      return [];
+    }
+  };
+
+  const getFrameCaptureDirectory = async () => {
+    try {
+      return await frameCaptureServiceRef.current.exportFrameDirectory();
+    } catch (error) {
+      console.error("Failed to get frame directory:", error);
+      return null;
+    }
+  };
+
+  // Effect to clean up frame capture service on component unmount
+  useEffect(() => {
+    return () => {
+      if (frameCaptureStatus.isCapturing) {
+        frameCaptureServiceRef.current.stopCapture().catch(console.error);
+      }
+    };
+  }, [frameCaptureStatus.isCapturing]);
+
   return {
     isPlaying,
     currentIndex,
@@ -145,5 +275,11 @@ export const useController = (props: TProps): TController => {
     stopAnimation,
     handleSliderChange,
     fitToRoute,
+    // Frame capture methods
+    frameCaptureStatus,
+    startFrameCapture,
+    stopFrameCapture,
+    captureFrame,
+    getFrameCaptureDirectory,
   };
 };

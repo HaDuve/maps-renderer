@@ -58,4 +58,17 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
   },
+  errorText: {
+    fontSize: 14,
+    color: "#F44336",
+    marginTop: 4,
+  },
+  captureButton: {
+    marginHorizontal: 4,
+    backgroundColor: "#4CAF50",
+  },
+  captureStopButton: {
+    marginHorizontal: 4,
+    backgroundColor: "#F44336",
+  },
 });

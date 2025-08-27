@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "Travel Route App",
+    "slug": "maps-renderer",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.travelroute",
+      "config": {
+        "googleMapsApiKey": "YOUR_IOS_API_KEY"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.yourcompany.travelroute",
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_ANDROID_API_KEY"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-location",
+      "expo-media-library"
+    ]
+  }
+}

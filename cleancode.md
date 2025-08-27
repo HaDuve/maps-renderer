@@ -16,8 +16,9 @@ Each (sub)folder should contain:
 
 - **Barrel file**: `index.ts` that exports all components/hooks/utilities from the folder
 - **Types file**: `types.ts` which includes all relevant types prefixed with T (TProps, TController, etc.)
-- **Controller file**: `controller.ts` containing a custom `useController` hook with component logic
-- **Component file**: `.tsx` file containing only the UI rendering logic
+- **Styles file**: `styles.ts` which includes all relevant styles (react native sylesheet) exported to the component file
+- **Controller file**: `controller.ts` containing a custom `useController` hook with component logic (must NOT contain any JSX code)
+- **Component file**: `.tsx` file containing the UI rendering logic and JSX code
 
 Example of a feature folder:
 
@@ -44,7 +45,8 @@ Example of a feature folder:
 ## Component Architecture
 
 - Follow a controller pattern by separating logic from UI
-- Component files (.tsx) should only contain rendering logic and minimal state
+- Component files (.tsx) should only contain rendering logic, JSX, and minimal state
+- Controller files (.ts) must never contain JSX code - only pure TypeScript logic
 - All business logic, API calls, and complex state management should be in controller hooks
 - Props should be properly typed using the types defined in the types.ts file
 

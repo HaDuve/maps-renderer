@@ -3,8 +3,6 @@ import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { Provider as PaperProvider, Appbar, BottomNavigation, DefaultTheme } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-import { enableLatestRenderer } from 'react-native-maps';
 
 // Import components
 import RouteInputForm from './src/components/RouteInputForm';
@@ -24,9 +22,6 @@ const theme = {
     accent: '#4CA5FF',
   },
 };
-
-// Enable latest renderer for react-native-maps
-enableLatestRenderer();
 
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState<Route | null>(null);
@@ -181,8 +176,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scene: {
+    paddingTop: 100,
     flex: 1,
     backgroundColor: '#f5f5f5',
+    borderWidth: 1,
+    borderColor: 'red',
   },
   emptyState: {
     flex: 1,

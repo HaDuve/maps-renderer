@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
-import { Button, Card, ProgressBar } from 'react-native-paper';
-import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
-import Slider from '@react-native-community/slider';
-import Animated from 'react-native-reanimated';
-import { Route } from '../types/Route';
+import React, { useState, useRef, useEffect } from "react";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
+import { Button, Card, ProgressBar } from "react-native-paper";
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
+import Slider from "@react-native-community/slider";
+import Animated from "react-native-reanimated";
+import { Route } from "../types/Route";
 
 interface AnimatedRouteMapProps {
   route: Route;
@@ -12,12 +12,12 @@ interface AnimatedRouteMapProps {
   isRecording?: boolean;
 }
 
-const { width: screenWidth } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get("window");
 
 const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
   route,
   onFrameCapture,
-  isRecording = false
+  isRecording = false,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -38,11 +38,11 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
   const getRouteRegion = () => {
     if (route.waypoints.length === 0) return null;
 
-    const coordinates = route.waypoints.map(wp => wp.coordinate);
-    const minLat = Math.min(...coordinates.map(c => c.latitude));
-    const maxLat = Math.max(...coordinates.map(c => c.latitude));
-    const minLng = Math.min(...coordinates.map(c => c.longitude));
-    const maxLng = Math.max(...coordinates.map(c => c.longitude));
+    const coordinates = route.waypoints.map((wp) => wp.coordinate);
+    const minLat = Math.min(...coordinates.map((c) => c.latitude));
+    const maxLat = Math.max(...coordinates.map((c) => c.latitude));
+    const minLng = Math.min(...coordinates.map((c) => c.longitude));
+    const maxLng = Math.max(...coordinates.map((c) => c.longitude));
 
     const latDelta = (maxLat - minLat) * 1.2;
     const lngDelta = (maxLng - minLng) * 1.2;
@@ -55,7 +55,7 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
     };
   };
 
-    const animateToWaypoint = (index: number, duration: number = 1000) => {
+  const animateToWaypoint = (index: number, duration: number = 1000) => {
     if (index >= route.waypoints.length) return;
 
     const waypoint = route.waypoints[index];
@@ -94,7 +94,7 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
     setIsPlaying(true);
 
     intervalRef.current = setInterval(() => {
-      setCurrentIndex(prevIndex => {
+      setCurrentIndex((prevIndex) => {
         if (prevIndex < route.waypoints.length - 1) {
           const newIndex = prevIndex + 1;
           animateToWaypoint(newIndex, 500);
@@ -117,7 +117,7 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
     }
   };
 
-    const handleSliderChange = (value: number) => {
+  const handleSliderChange = (value: number) => {
     const index = Math.round(value);
     setCurrentIndex(index);
     animateToWaypoint(index, 300);
@@ -159,42 +159,44 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
 
   return (
     <View style={styles.container}>
-      <MapView
-        ref={mapRef}
-        provider={PROVIDER_GOOGLE}
-        style={styles.map}
-        region={mapRegion}
-        showsUserLocation={false}
-        onLayout={fitToRoute}
-      >
-        {/* Polyline showing full route */}
-        <Polyline
-          coordinates={route.waypoints.map(wp => wp.coordinate)}
-          strokeColor="#FF6B35"
-          strokeWidth={4}
-          strokeColors={['#7F0000', '#B24112', '#E5845C', '#FF6B35']}
-        />
-
-        {/* All waypoint markers */}
-        {route.waypoints.map((waypoint, index) => (
-          <Marker
-            key={waypoint.id}
-            coordinate={waypoint.coordinate}
-            title={waypoint.name || `Waypoint ${index + 1}`}
-            pinColor={index === currentIndex ? 'red' : 'blue'}
+      <View style={styles.mapContainer}>
+        <MapView
+          ref={mapRef}
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          region={mapRegion}
+          showsUserLocation={false}
+          onLayout={fitToRoute}
+        >
+          {/* Polyline showing full route */}
+          <Polyline
+            coordinates={route.waypoints.map((wp) => wp.coordinate)}
+            strokeColor="#FF6B35"
+            strokeWidth={4}
+            strokeColors={["#7F0000", "#B24112", "#E5845C", "#FF6B35"]}
           />
-        ))}
 
-        {/* Current position marker */}
-        {route.waypoints[currentIndex] && (
-          <Marker
-            coordinate={route.waypoints[currentIndex].coordinate}
-            anchor={{ x: 0.5, y: 0.5 }}
-          >
-            <View style={[styles.currentMarker, { opacity: 1 }]} />
-          </Marker>
-        )}
-      </MapView>
+          {/* All waypoint markers */}
+          {route.waypoints.map((waypoint, index) => (
+            <Marker
+              key={waypoint.id}
+              coordinate={waypoint.coordinate}
+              title={waypoint.name || `Waypoint ${index + 1}`}
+              pinColor={index === currentIndex ? "red" : "blue"}
+            />
+          ))}
+
+          {/* Current position marker */}
+          {route.waypoints[currentIndex] && (
+            <Marker
+              coordinate={route.waypoints[currentIndex].coordinate}
+              anchor={{ x: 0.5, y: 0.5 }}
+            >
+              <View style={[styles.currentMarker, { opacity: 1 }]} />
+            </Marker>
+          )}
+        </MapView>
+      </View>
 
       {/* Controls */}
       <Card style={styles.controlsCard}>
@@ -226,10 +228,13 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
             <Button
               mode="contained"
               onPress={startAnimation}
-              style={[styles.controlButton, { backgroundColor: isPlaying ? '#FF4444' : '#FF6B35' }]}
-              icon={isPlaying ? 'pause' : 'play'}
+              style={[
+                styles.controlButton,
+                { backgroundColor: isPlaying ? "#FF4444" : "#FF6B35" },
+              ]}
+              icon={isPlaying ? "pause" : "play"}
             >
-              {isPlaying ? 'Pause' : 'Play'}
+              {isPlaying ? "Pause" : "Play"}
             </Button>
 
             <Button
@@ -243,7 +248,11 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
 
             <Button
               mode="outlined"
-              onPress={() => setAnimationSpeed(speed => speed === 1 ? 2 : speed === 2 ? 0.5 : 1)}
+              onPress={() =>
+                setAnimationSpeed((speed) =>
+                  speed === 1 ? 2 : speed === 2 ? 0.5 : 1
+                )
+              }
               style={styles.controlButton}
             >
               Speed: {animationSpeed}x
@@ -255,9 +264,7 @@ const AnimatedRouteMap: React.FC<AnimatedRouteMapProps> = ({
             <Text style={styles.infoText}>
               Waypoint {currentIndex + 1} of {route.waypoints.length}
             </Text>
-            <Text style={styles.infoText}>
-              {route.metadata.name}
-            </Text>
+            <Text style={styles.infoText}>{route.metadata.name}</Text>
           </View>
         </Card.Content>
       </Card>
@@ -269,10 +276,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  mapContainer: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "blue",
+  },
   emptyContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   map: {
     flex: 1,
@@ -281,9 +293,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: '#FF6B35',
+    backgroundColor: "#FF6B35",
     borderWidth: 3,
-    borderColor: 'white',
+    borderColor: "white",
   },
   controlsCard: {
     margin: 16,
@@ -297,24 +309,24 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   slider: {
-    width: '100%',
+    width: "100%",
     height: 40,
     marginBottom: 16,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginBottom: 16,
   },
   controlButton: {
     marginHorizontal: 4,
   },
   infoContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   infoText: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
 });
 

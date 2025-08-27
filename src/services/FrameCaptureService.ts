@@ -91,13 +91,19 @@ export class FrameCaptureService {
       const filePath = `${this.tempDirectory}${fileName}`;
 
       // Capture the view with high quality settings
+      // Use default dimensions since measuring Google Maps view is unreliable
+      const defaultDimensions = {
+        width: 1024,
+        height: 1024,
+      };
+
       const uri = await captureRef(viewRef, {
         format: this.options.format,
         quality: this.options.quality,
-        result: "data-uri", // changed from "file" to supported type
-        width: this.options.width,
-        height: this.options.height,
-        snapshotContentContainer: true,
+        result: "data-uri",
+        width: defaultDimensions.width,
+        height: defaultDimensions.height,
+        snapshotContentContainer: false, // Don't use snapshotContentContainer for map views
       });
 
       // Save the data URI to file

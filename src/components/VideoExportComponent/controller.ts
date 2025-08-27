@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { VideoExportService } from "../../services/VideoExportService";
+import { VideoExportService } from "@services/VideoExportService";
 import { TProps, TController } from "./types";
 
 export const useController = (props: TProps): TController => {

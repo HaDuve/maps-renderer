@@ -10,15 +10,15 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { enableLatestRenderer } from "react-native-maps";
 import { Platform } from "react-native";
-import { TAppProps } from "./types";
-import { useController } from "./controller";
-import { styles as appStyles } from "./styles";
+import { TAppProps } from "@app/types";
+import { useController } from "@app/controller";
+import { styles as appStyles } from "@app/styles";
 
 // Import components
-import { RouteInputForm } from "../components/RouteInputForm/RouteInputForm";
-import { WaypointManager } from "../components/WaypointManager/WaypointManager";
-import { RecordableRouteMap } from "../components/RecordableRouteMap/RecordableRouteMap";
-import { VideoExportComponent } from "../components/VideoExportComponent";
+import { RouteInputForm } from "@components/RouteInputForm/RouteInputForm";
+import { WaypointManager } from "@components/WaypointManager/WaypointManager";
+import { RecordableRouteMap } from "@components/RecordableRouteMap/RecordableRouteMap";
+import { VideoExportComponent } from "@components/VideoExportComponent/VideoExportComponent";
 
 // Create a custom theme
 const theme = {

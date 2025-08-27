@@ -1,4 +1,4 @@
-import { Waypoint, Coordinate } from "../../types/Route";
+import { Waypoint, Coordinate } from "@types/Route";
 import { Region } from "react-native-maps";
 
 export type TProps = {

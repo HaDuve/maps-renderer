@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { View, StyleSheet, Alert, Text } from "react-native";
 import { Button, ProgressBar, Card } from "react-native-paper";
-import { AnimatedRouteMap } from "./AnimatedRouteMap";
-import { VideoRecordingService } from "../services/VideoRecordingService";
+import { AnimatedRouteMap } from "@components/AnimatedRouteMap/AnimatedRouteMap";
+import { VideoRecordingService } from "@services/VideoRecordingService";
 import { Route } from "../types/Route";
 
 interface RecordableRouteMapProps {

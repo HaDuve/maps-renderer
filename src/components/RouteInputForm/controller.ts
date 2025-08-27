@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Route, RouteMetadata } from "../../types/Route";
+import { Route, RouteMetadata } from "@types/Route";
 import { TProps, TController } from "./types";
 
 export const useController = ({

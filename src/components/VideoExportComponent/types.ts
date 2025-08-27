@@ -1,4 +1,4 @@
-import { VideoExportService } from "../../services/VideoExportService";
+import { VideoExportService } from "@services/VideoExportService";
 
 export type TProps = {
   videoUri: string;

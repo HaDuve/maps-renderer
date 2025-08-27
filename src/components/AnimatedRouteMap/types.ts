@@ -1,6 +1,6 @@
 import { MutableRefObject } from "react";
 import MapView from "react-native-maps";
-import { Route } from "../../types/Route";
+import { Route } from "@types/Route";
 
 export type TProps = {
   route: Route;

@@ -1,2 +1,1 @@
-export { AnimatedRouteMap } from "./AnimatedRouteMap";
-export * from "./types";
+export * from "./AnimatedRouteMap";

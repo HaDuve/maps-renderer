@@ -1,1 +1,1 @@
-export { RouteInputForm } from "./RouteInputForm";
+export * from "./RouteInputForm";

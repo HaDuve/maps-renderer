@@ -20,6 +20,11 @@ Each (sub)folder should contain:
 - **Controller file**: `controller.ts` containing a custom `useController` hook with component logic (must NOT contain any JSX code)
 - **Component file**: `.tsx` file containing the UI rendering logic and JSX code
 
+**Important**:
+
+- There should be NO component.tsx files in the components directory that simply re-export the actual component
+- Components should only be exported through their respective directory's index.ts file
+
 Example of a feature folder:
 
 ```
@@ -86,9 +91,22 @@ export const Map = (props: TProps) => {
 ## Imports and Exports
 
 - Use barrel files (index.ts) to simplify imports
+- Each directory should have a barrel file (index.ts) that exports its contents
+- Component folders should ONLY export their main component from index.ts (not controllers, types, or styles)
+  - Example: `export * from './ComponentName'` NOT `export * from './controller'`
+  - This prevents name conflicts when importing from multiple components
+- Use path aliases for imports to improve readability and maintainability
+  - Example: `import { Component } from "@components"` instead of `import { Component } from "../../../components/Component"`
+  - Common aliases to use:
+    - `@components` for src/components
+    - `@services` for src/services
+    - `@types` for src/types
+    - `@app` for src/App
+- Prefer importing from the barrel file without specifying the full path
+  - Example: `import { Route } from "@types"` instead of `import { Route } from "@types/Route"`
 - Organize imports in the following order:
   1. External libraries
-  2. Internal absolute paths
+  2. Internal absolute paths (using aliases)
   3. Local relative imports
   4. Style/asset imports
 - Avoid circular dependencies

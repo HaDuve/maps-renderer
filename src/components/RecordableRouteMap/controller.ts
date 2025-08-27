@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { View, Alert } from "react-native";
-import { VideoRecordingService } from "../../services/VideoRecordingService";
+import { VideoRecordingService } from "@services/VideoRecordingService";
 import { TProps, TController } from "./types";
 
 export const useController = ({

@@ -1,7 +1,7 @@
 import { MutableRefObject } from "react";
 import { View } from "react-native";
-import { Route } from "../../types/Route";
-import { VideoRecordingService } from "../../services/VideoRecordingService";
+import { Route } from "@types/Route";
+import { VideoRecordingService } from "@services/VideoRecordingService";
 
 export type TProps = {
   route: Route;

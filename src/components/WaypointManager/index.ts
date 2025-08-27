@@ -1,1 +1,1 @@
-export { WaypointManager } from "./WaypointManager";
+export * from "./WaypointManager";

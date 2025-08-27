@@ -1,2 +1,1 @@
-export { VideoExportComponent } from "./VideoExportComponent";
-export * from "./types";
+export * from "./VideoExportComponent";

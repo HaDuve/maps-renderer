@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, ScrollView, Text, Platform } from 'react-native';
 import { Provider as PaperProvider, Appbar, BottomNavigation, DefaultTheme } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { enableLatestRenderer } from 'react-native-maps';
 
 // Import components
 import RouteInputForm from './src/components/RouteInputForm';
@@ -23,12 +24,53 @@ const theme = {
   },
 };
 
+// Enable latest renderer for Google Maps
+if (Platform.OS === 'android') {
+  enableLatestRenderer();
+}
+
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState<Route | null>(null);
   const [recordedVideoUri, setRecordedVideoUri] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
 
   const generateId = () => Math.random().toString(36).substr(2, 9);
+  
+  // Create a sample route for testing
+  useEffect(() => {
+    if (!currentRoute) {
+      const sampleRoute = {
+        id: generateId(),
+        waypoints: [
+          {
+            id: generateId(),
+            coordinate: { latitude: 37.7749, longitude: -122.4194 }, // San Francisco
+            name: "San Francisco",
+            timestamp: Date.now()
+          },
+          {
+            id: generateId(),
+            coordinate: { latitude: 37.8716, longitude: -122.2727 }, // Berkeley
+            name: "Berkeley",
+            timestamp: Date.now() + 1000
+          },
+          {
+            id: generateId(),
+            coordinate: { latitude: 37.7749, longitude: -122.2521 }, // Oakland
+            name: "Oakland",
+            timestamp: Date.now() + 2000
+          }
+        ],
+        metadata: {
+          name: "Bay Area Tour",
+          description: "Sample route around the Bay Area",
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        }
+      };
+      setCurrentRoute(sampleRoute as any);
+    }
+  }, []);
 
   const handleSaveRoute = (routeData: Partial<Route>) => {
     const newRoute: Route = {
@@ -175,12 +217,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scene: {
-    paddingTop: 100,
+    scene: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    borderWidth: 1,
-    borderColor: 'red',
   },
   emptyState: {
     flex: 1,

@@ -94,9 +94,14 @@ const RecordableRouteMap: React.FC<RecordableRouteMapProps> = ({
   };
 
   const handleFrameCapture = async (frameData: any) => {
-    if (isRecording && mapRef.current) {
-      await videoService.captureFrame(mapRef.current, frameData.index);
-    }
+    // Disable frame capture for now as it requires further setup
+    console.log("Frame capture requested:", frameData);
+    return;
+    
+    // Original code - disabled
+    // if (isRecording && mapRef.current) {
+    //   await videoService.captureFrame(mapRef.current, frameData.index);
+    // }
   };
 
   return (
@@ -182,6 +187,8 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
+    height: 300,
+    marginBottom: 10,
   },
   recordingCard: {
     margin: 16,

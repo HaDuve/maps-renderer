@@ -4,7 +4,7 @@ import { Button } from "react-native-paper";
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import { Route } from "../../types/Route";
 import {
-  FrameCaptureService,
+  useFrameCapture,
   FrameCaptureOptions,
 } from "../../services/FrameCaptureService";
 import { VideoRecordingService } from "../../services/VideoRecordingService";
@@ -17,13 +17,6 @@ const FRAME_CAPTURE_INTERVAL = 1000 / 30; // 30fps = ~33.33ms between frames
 const TOTAL_FRAMES_PER_WAYPOINT = 30; // 1 second of footage per waypoint
 
 // Types
-interface FrameCaptureStatus {
-  isCapturing: boolean;
-  progress: number;
-  framesCount: number;
-  error: string | null;
-}
-
 interface MapRegion {
   latitude: number;
   longitude: number;
@@ -53,24 +46,9 @@ export const RecordableRouteMap: React.FC<Props> = ({
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
-  const [frameCaptureStatus, setFrameCaptureStatus] =
-    useState<FrameCaptureStatus>({
-      isCapturing: false,
-      progress: 0,
-      framesCount: 0,
-      error: null,
-    });
 
   // Refs
   const mapRef = useRef<MapView>(null);
-  const frameCaptureServiceRef = useRef<FrameCaptureService>(
-    new FrameCaptureService({
-      fps: 30,
-      quality: 1.0,
-      format: "png",
-      ...frameCaptureOptions,
-    })
-  );
   const videoServiceRef = useRef(
     new VideoRecordingService({
       fps: 30,
@@ -80,7 +58,9 @@ export const RecordableRouteMap: React.FC<Props> = ({
   );
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const frameCaptureIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const isCapturingRef = useRef(false);
+
+  // Use the new functional frame capture hook
+  const frameCapture = useFrameCapture(frameCaptureOptions);
 
   // Calculate region that fits all waypoints
   const getRouteRegion = useCallback((): MapRegion | null => {
@@ -143,41 +123,27 @@ export const RecordableRouteMap: React.FC<Props> = ({
   // Capture a single frame
   const captureFrame = useCallback(
     async (index: number) => {
-      if (!isCapturingRef.current || !mapRef.current) {
+      if (!frameCapture.isCapturing || !mapRef.current) {
         return;
       }
 
       try {
-        const frameService = frameCaptureServiceRef.current;
         const totalFrames = route.waypoints.length * TOTAL_FRAMES_PER_WAYPOINT;
 
-        const frame = await frameService.captureFrame(
+        const frame = await frameCapture.captureFrame(
           mapRef.current,
           index,
           totalFrames
         );
 
         if (frame) {
-          setFrameCaptureStatus((prev) => ({
-            ...prev,
-            framesCount: prev.framesCount + 1,
-            progress: (index + 1) / totalFrames,
-          }));
-
           setRecordingProgress((index + 1) / totalFrames);
         }
       } catch (error) {
         console.error("Error capturing frame:", error);
-        setFrameCaptureStatus((prev) => ({
-          ...prev,
-          error:
-            error instanceof Error
-              ? error.message
-              : "Unknown error during frame capture",
-        }));
       }
     },
-    [route.waypoints.length]
+    [route.waypoints.length, frameCapture]
   );
 
   // Start frame capture and animation
@@ -193,16 +159,7 @@ export const RecordableRouteMap: React.FC<Props> = ({
         return false;
       }
 
-      const frameService = frameCaptureServiceRef.current;
-      await frameService.startCapture();
-
-      setFrameCaptureStatus({
-        isCapturing: true,
-        progress: 0,
-        framesCount: 0,
-        error: null,
-      });
-      isCapturingRef.current = true;
+      await frameCapture.startCapture();
 
       // Reset to start
       setCurrentIndex(0);
@@ -211,7 +168,7 @@ export const RecordableRouteMap: React.FC<Props> = ({
 
       // Start continuous frame capture at 30fps
       frameCaptureIntervalRef.current = setInterval(async () => {
-        if (mapRef.current && isCapturingRef.current) {
+        if (mapRef.current && frameCapture.isCapturing) {
           await captureFrame(frameCount);
           frameCount++;
 
@@ -254,59 +211,20 @@ export const RecordableRouteMap: React.FC<Props> = ({
       return true;
     } catch (error) {
       console.error("Failed to start frame capture:", error);
-      setFrameCaptureStatus({
-        isCapturing: false,
-        progress: 0,
-        framesCount: 0,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Unknown error starting frame capture",
-      });
-      isCapturingRef.current = false;
       return false;
     }
-  }, [route.waypoints.length, animateToWaypoint, captureFrame]);
+  }, [route.waypoints.length, animateToWaypoint, captureFrame, frameCapture]);
 
   // Stop frame capture
   const stopFrameCapture = useCallback(async (): Promise<any[]> => {
     try {
-      const frameService = frameCaptureServiceRef.current;
-      const frames = await frameService.stopCapture();
-
-      setFrameCaptureStatus((prev) => ({
-        ...prev,
-        isCapturing: false,
-        framesCount: frames.length,
-      }));
-      isCapturingRef.current = false;
-
+      const frames = await frameCapture.stopCapture();
       return frames;
     } catch (error) {
       console.error("Failed to stop frame capture:", error);
-      setFrameCaptureStatus((prev) => ({
-        ...prev,
-        isCapturing: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "Unknown error stopping frame capture",
-      }));
       return [];
     }
-  }, []);
-
-  // Get frame capture directory
-  const getFrameCaptureDirectory = useCallback(async (): Promise<
-    string | null
-  > => {
-    try {
-      return await frameCaptureServiceRef.current.exportFrameDirectory();
-    } catch (error) {
-      console.error("Failed to get frame directory:", error);
-      return null;
-    }
-  }, []);
+  }, [frameCapture]);
 
   // Toggle recording
   const toggleRecording = useCallback(async () => {
@@ -384,11 +302,11 @@ export const RecordableRouteMap: React.FC<Props> = ({
       if (frameCaptureIntervalRef.current) {
         clearInterval(frameCaptureIntervalRef.current);
       }
-      if (frameCaptureStatus.isCapturing) {
-        frameCaptureServiceRef.current.stopCapture().catch(console.error);
+      if (frameCapture.isCapturing) {
+        frameCapture.stopCapture().catch(console.error);
       }
     };
-  }, [frameCaptureStatus.isCapturing]);
+  }, [frameCapture.isCapturing, frameCapture]);
 
   // Debug logging
   useEffect(() => {
@@ -474,17 +392,15 @@ export const RecordableRouteMap: React.FC<Props> = ({
             Recording: {Math.round(recordingProgress * 100)}%
           </Text>
           <Text style={styles.progressText}>
-            Frames: {frameCaptureStatus.framesCount}
+            Frames: {frameCapture.capturedFrames.length}
           </Text>
         </View>
       )}
 
       {/* Error display */}
-      {frameCaptureStatus.error && (
+      {frameCapture.error && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>
-            Error: {frameCaptureStatus.error}
-          </Text>
+          <Text style={styles.errorText}>Error: {frameCapture.error}</Text>
         </View>
       )}
     </View>

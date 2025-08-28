@@ -7,6 +7,16 @@
 - Video sharing fails as the system doesn't recognize the PNG file as a video format
 - Frames are captured but the functionality to use them for video generation is commented out
 
+## Future Optional Features
+
+- [ ] Reimplement advanced UI controls:
+  - [ ] Progress bar for recording progress
+  - [ ] Manual waypoint navigation controls
+  - [ ] Animation speed control
+  - [ ] Frame capture statistics display
+  - [ ] Manual stop button
+  - [ ] Processing status indicators
+
 ## Video Recording and Generation Strategy
 
 ### 1. Frame Capture System

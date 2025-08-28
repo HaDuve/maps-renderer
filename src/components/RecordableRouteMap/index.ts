@@ -1,1 +1,1 @@
-export * from "./RecordableRouteMap";
+export { RecordableRouteMap } from "./RecordableRouteMap";

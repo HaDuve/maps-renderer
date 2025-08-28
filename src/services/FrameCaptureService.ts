@@ -82,13 +82,25 @@ export class FrameCaptureService {
     index: number,
     totalFrames: number
   ): Promise<CapturedFrame | null> {
-    if (!this.isCapturing) return null;
+    console.log(`🔍 FrameCaptureService.captureFrame called with:`, {
+      index,
+      totalFrames,
+      isCapturing: this.isCapturing,
+      hasViewRef: !!viewRef,
+    });
+
+    if (!this.isCapturing) {
+      console.log("❌ Service not capturing, returning null");
+      return null;
+    }
 
     try {
       // Generate a formatted frame number for sequential naming
       const frameNumber = String(index).padStart(4, "0");
       const fileName = `frame_${frameNumber}.${this.options.format}`;
       const filePath = `${this.tempDirectory}${fileName}`;
+
+      console.log(`📁 Saving frame to: ${filePath}`);
 
       // Capture the view with high quality settings
       // Use default dimensions since measuring Google Maps view is unreliable
@@ -97,6 +109,9 @@ export class FrameCaptureService {
         height: 1024,
       };
 
+      console.log(
+        "📸 Attempting to capture view with react-native-view-shot..."
+      );
       const uri = await captureRef(viewRef, {
         format: this.options.format,
         quality: this.options.quality,
@@ -106,14 +121,27 @@ export class FrameCaptureService {
         snapshotContentContainer: false, // Don't use snapshotContentContainer for map views
       });
 
+      console.log(
+        "✅ View captured successfully, URI length:",
+        uri?.length || 0
+      );
+      console.log("📸 Frame data preview:", uri?.substring(0, 50) + "...");
+
       // Save the data URI to file
       if (uri.startsWith("data:")) {
         // Extract base64 data from data URI
         const base64Data = uri.split(",")[1];
+        console.log("💾 Writing base64 data to file...");
         // Write to file
         await FileSystem.writeAsStringAsync(filePath, base64Data, {
           encoding: FileSystem.EncodingType.Base64,
         });
+        console.log("💾 File written successfully");
+      } else {
+        console.log(
+          "⚠️ URI doesn't start with 'data:', URI:",
+          uri?.substring(0, 50)
+        );
       }
 
       const frame: CapturedFrame = {
@@ -123,6 +151,14 @@ export class FrameCaptureService {
       };
 
       this.capturedFrames.push(frame);
+      console.log(
+        `📊 Frame ${index} added to capturedFrames array, total: ${this.capturedFrames.length}`
+      );
+      console.log(`📄 Frame ${index} metadata:`, {
+        index: frame.index,
+        timestamp: frame.timestamp,
+        uriLength: frame.uri?.length || 0,
+      });
 
       // Report progress
       if (this.onProgressCallback && totalFrames > 0) {
@@ -134,9 +170,10 @@ export class FrameCaptureService {
         this.onProgressCallback(progress);
       }
 
+      console.log(`✅ Frame ${index} captured and processed successfully`);
       return frame;
     } catch (error) {
-      console.error(`Failed to capture frame ${index}:`, error);
+      console.error(`❌ Failed to capture frame ${index}:`, error);
       return null;
     }
   }

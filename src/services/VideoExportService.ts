@@ -100,13 +100,13 @@ export class VideoExportService {
       userMessage += 'Please try again.';
     }
 
-    const buttons = [{ text: 'OK', style: 'default' as const }];
+    const buttons: Array<{text: string, style?: 'default' | 'cancel' | 'destructive', onPress?: () => void}> = [{ text: 'OK', style: 'default' }];
 
     if (actionRequired) {
       buttons.unshift({
         text: 'Open Settings',
         onPress: () => Linking.openSettings()
-      } as const);
+      });
     }
 
     Alert.alert('Error', userMessage, buttons);

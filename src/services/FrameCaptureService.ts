@@ -159,7 +159,6 @@ export const useFrameCapture = (
           error: null,
         }));
 
-        console.log("Frame capture started");
       } catch (error) {
         console.error("Failed to start frame capture:", error);
         setState((prev) => ({
@@ -182,18 +181,8 @@ export const useFrameCapture = (
       index: number,
       totalFrames: number
     ): Promise<CapturedFrame | null> => {
-      console.log(`🔍 useFrameCapture.captureFrame called with:`, {
-        index,
-        totalFrames,
-        isCapturing: state.isCapturing,
-        hasViewRef: !!viewRef,
-      });
 
       if (!state.isCapturing || !state.tempDirectory) {
-        console.log("❌ Frame capture conditions not met:", {
-          isCapturing: state.isCapturing,
-          hasTempDirectory: !!state.tempDirectory,
-        });
         return null;
       }
 
@@ -205,11 +194,7 @@ export const useFrameCapture = (
         const fileName = `frame_${frameNumber}.${options.format}`;
         const filePath = `${state.tempDirectory}${fileName}`;
 
-        console.log(`📁 Saving frame to: ${filePath}`);
 
-        console.log(
-          "📸 Attempting to capture view with react-native-view-shot..."
-        );
         const uri = await captureRef(viewRef, {
           format: options.format,
           quality: options.quality,
@@ -219,27 +204,16 @@ export const useFrameCapture = (
           snapshotContentContainer: false, // Don't use snapshotContentContainer for map views
         });
 
-        console.log(
-          "✅ View captured successfully, URI length:",
-          uri?.length || 0
-        );
-        console.log("📸 Frame data preview:", uri?.substring(0, 50) + "...");
 
         // Save the data URI to file
         if (uri.startsWith("data:")) {
           // Extract base64 data from data URI
           const base64Data = uri.split(",")[1];
-          console.log("💾 Writing base64 data to file...");
 
           await FileSystem.writeAsStringAsync(filePath, base64Data, {
             encoding: FileSystem.EncodingType.Base64,
           });
-          console.log("💾 File written successfully");
         } else {
-          console.log(
-            "⚠️ URI doesn't start with 'data:', URI:",
-            uri?.substring(0, 50)
-          );
         }
 
         const frame: CapturedFrame = {
@@ -257,14 +231,6 @@ export const useFrameCapture = (
             percentage: (index + 1) / totalFrames,
           };
 
-          console.log(
-            `📊 Frame ${index} added to capturedFrames array, total: ${newCapturedFrames.length}`
-          );
-          console.log(`📄 Frame ${index} metadata:`, {
-            index: frame.index,
-            timestamp: frame.timestamp,
-            uriLength: frame.uri?.length || 0,
-          });
 
           // Report progress via callback if provided
           if (onProgressCallbackRef.current) {
@@ -278,10 +244,9 @@ export const useFrameCapture = (
           };
         });
 
-        console.log(`✅ Frame ${index} captured and processed successfully`);
         return frame;
       } catch (error) {
-        console.error(`❌ Failed to capture frame ${index}:`, error);
+        console.error(`Failed to capture frame ${index}:`, error);
         setState((prev) => ({
           ...prev,
           error:
@@ -306,9 +271,6 @@ export const useFrameCapture = (
       isCapturing: false,
     }));
 
-    console.log(
-      `Frame capture completed. Captured ${state.capturedFrames.length} frames`
-    );
 
     return [...state.capturedFrames];
   }, [state.isCapturing, state.capturedFrames.length]);
@@ -326,9 +288,8 @@ export const useFrameCapture = (
         tempDirectory: null,
       }));
 
-      console.log("Cleaned up temporary frame files");
     } catch (error) {
-      console.warn("Frame cleanup failed:", error);
+      console.error("Frame cleanup failed:", error);
       setState((prev) => ({
         ...prev,
         error: error instanceof Error ? error.message : "Frame cleanup failed",

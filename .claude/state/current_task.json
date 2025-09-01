@@ -1,0 +1,6 @@
+{
+  "task": "h-refactor-clean-code-and-video-generation",
+  "branch": "feature/clean-code-and-video-generation",
+  "services": ["App", "components", "services", "types"],
+  "updated": "2025-09-01"
+}

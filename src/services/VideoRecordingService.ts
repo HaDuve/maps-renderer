@@ -1,7 +1,7 @@
 import { captureRef } from "react-native-view-shot";
 import * as FileSystem from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
-import { Alert } from "react-native";
+import { Alert, Linking } from "react-native";
 
 export interface RecordingOptions {
   fps: number;
@@ -21,6 +21,33 @@ export class VideoRecordingService {
   private isRecording = false;
   private recordingOptions: RecordingOptions;
 
+  handleError(error: Error, operation: string = 'video recording') {
+    let userMessage = `Failed to ${operation}. `;
+    let actionRequired = false;
+
+    if (error.message.includes('permission')) {
+      userMessage += 'Please grant camera and storage permissions in settings.';
+      actionRequired = true;
+    } else if (error.message.includes('storage')) {
+      userMessage += 'Not enough storage space available.';
+    } else if (error.message.includes('Recording already')) {
+      userMessage += 'Please stop the current recording first.';
+    } else {
+      userMessage += 'Please try again.';
+    }
+
+    const buttons: Array<{text: string, style?: 'default' | 'cancel' | 'destructive', onPress?: () => void}> = [{ text: 'OK', style: 'default' }];
+
+    if (actionRequired) {
+      buttons.unshift({
+        text: 'Open Settings',
+        onPress: () => Linking.openSettings()
+      });
+    }
+
+    Alert.alert('Error', userMessage, buttons);
+  }
+
   constructor(options: Partial<RecordingOptions> = {}) {
     this.recordingOptions = {
       fps: 30,
@@ -38,7 +65,6 @@ export class VideoRecordingService {
 
     this.isRecording = true;
     this.frames = [];
-    console.log("Recording started");
   }
 
   async captureFrame(viewRef: any, frameIndex: number): Promise<void> {
@@ -58,7 +84,6 @@ export class VideoRecordingService {
       };
 
       this.frames.push(frameData);
-      console.log(`Captured frame ${frameIndex + 1}`);
     } catch (error) {
       console.error("Frame capture failed:", error);
       throw error;
@@ -67,49 +92,100 @@ export class VideoRecordingService {
 
   async stopRecording(): Promise<FrameData[]> {
     this.isRecording = false;
-    console.log(`Recording stopped. Captured ${this.frames.length} frames`);
     return [...this.frames];
   }
 
   async createVideoFromFrames(frames: FrameData[]): Promise<string> {
-    // For Expo managed workflow, this would typically require:
-    // 1. Server-side processing with FFmpeg
-    // 2. Or using a third-party service
-    // 3. Or creating a GIF from frames (simpler alternative)
+    if (frames.length === 0) {
+      throw new Error('No frames available for video generation');
+    }
 
-    // Simplified implementation: Create a GIF-like sequence
-    const videoDirectory = FileSystem.documentDirectory + "videos/";
+    try {
+      const videoDirectory = FileSystem.documentDirectory + "videos/";
+      const timestamp = Date.now();
 
-    // Ensure directory exists
-    const dirInfo = await FileSystem.getInfoAsync(videoDirectory);
-    if (!dirInfo.exists) {
-      await FileSystem.makeDirectoryAsync(videoDirectory, {
+      // Ensure directory exists
+      const dirInfo = await FileSystem.getInfoAsync(videoDirectory);
+      if (!dirInfo.exists) {
+        await FileSystem.makeDirectoryAsync(videoDirectory, {
+          intermediates: true,
+        });
+      }
+
+      // Create organized frame sequence for potential server-side processing
+      const sequenceDirectory = `${videoDirectory}sequence_${timestamp}/`;
+      await FileSystem.makeDirectoryAsync(sequenceDirectory, {
         intermediates: true,
       });
-    }
 
-    // For now, create a placeholder image if there are no frames
-    const videoFileName = `route_video_${Date.now()}.png`;
-    const videoPath = videoDirectory + videoFileName;
-
-    if (frames.length > 0) {
-      // Copy first frame as placeholder
-      await FileSystem.copyAsync({
-        from: frames[0].uri,
-        to: videoPath,
+      // Copy and organize frames with proper naming
+      const framePromises = frames.map(async (frame, index) => {
+        const paddedIndex = String(index).padStart(4, '0');
+        const frameFileName = `frame_${paddedIndex}.${this.recordingOptions.format}`;
+        const framePath = sequenceDirectory + frameFileName;
+        
+        if (frame.uri.startsWith('data:')) {
+          // Handle data URI frames
+          const base64Data = frame.uri.split(',')[1];
+          await FileSystem.writeAsStringAsync(framePath, base64Data, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
+        } else {
+          // Handle file URI frames
+          await FileSystem.copyAsync({
+            from: frame.uri,
+            to: framePath,
+          });
+        }
+        
+        return framePath;
       });
-    } else {
-      // Create a placeholder file for demo purposes
-      const placeholderText =
-        "This is a placeholder for video recording.\n" +
-        "In a production app, this would be an actual video file.\n" +
-        "Timestamp: " +
-        new Date().toISOString();
 
-      await FileSystem.writeAsStringAsync(videoPath, placeholderText);
+      await Promise.all(framePromises);
+
+      // Create manifest for video processing
+      const manifest = {
+        frameCount: frames.length,
+        fps: this.recordingOptions.fps,
+        duration: frames.length / this.recordingOptions.fps,
+        quality: this.recordingOptions.quality,
+        format: this.recordingOptions.format,
+        createdAt: new Date().toISOString(),
+        frames: frames.map((frame, index) => ({
+          index,
+          timestamp: frame.timestamp,
+          filename: `frame_${String(index).padStart(4, '0')}.${this.recordingOptions.format}`
+        }))
+      };
+
+      const manifestPath = sequenceDirectory + 'manifest.json';
+      await FileSystem.writeAsStringAsync(
+        manifestPath,
+        JSON.stringify(manifest, null, 2)
+      );
+
+      // TODO: Implement server-side video processing
+      // For now, create a shareable image sequence package
+      const packageInfo = {
+        type: 'image-sequence',
+        directory: sequenceDirectory,
+        manifest: manifestPath,
+        frameCount: frames.length,
+        duration: frames.length / this.recordingOptions.fps,
+        readyForProcessing: true
+      };
+
+      const packageInfoPath = `${videoDirectory}package_${timestamp}.json`;
+      await FileSystem.writeAsStringAsync(
+        packageInfoPath,
+        JSON.stringify(packageInfo, null, 2)
+      );
+
+      return packageInfoPath;
+    } catch (error) {
+      this.handleError(error as Error, 'create video from frames');
+      throw error;
     }
-
-    return videoPath;
   }
 
   async cleanupFrames(frames: FrameData[]): Promise<void> {
@@ -119,9 +195,8 @@ export class VideoRecordingService {
           FileSystem.deleteAsync(frame.uri, { idempotent: true })
         )
       );
-      console.log("Cleaned up temporary frame files");
     } catch (error) {
-      console.warn("Frame cleanup failed:", error);
+      console.error("Frame cleanup failed:", error);
     }
   }
 
@@ -130,6 +205,46 @@ export class VideoRecordingService {
       frameCount: this.frames.length,
       isRecording: this.isRecording,
       estimatedDuration: this.frames.length / this.recordingOptions.fps,
+      estimatedFileSize: this.frames.length * 0.5, // Rough estimate in MB
     };
+  }
+
+  async processVideoOnServer(packageInfoPath: string): Promise<string> {
+    // TODO: Implement server-side video processing
+    // This method will upload the frame sequence to a server for video processing
+    throw new Error('Server-side video processing not implemented yet. Please use the image sequence package for manual processing.');
+  }
+
+  async createVideoPreview(frames: FrameData[]): Promise<string> {
+    if (frames.length === 0) {
+      throw new Error('No frames available for preview');
+    }
+
+    try {
+      const videoDirectory = FileSystem.documentDirectory + "videos/";
+      const previewFileName = `preview_${Date.now()}.${this.recordingOptions.format}`;
+      const previewPath = videoDirectory + previewFileName;
+
+      // Use the middle frame as preview
+      const middleFrameIndex = Math.floor(frames.length / 2);
+      const middleFrame = frames[middleFrameIndex];
+
+      if (middleFrame.uri.startsWith('data:')) {
+        const base64Data = middleFrame.uri.split(',')[1];
+        await FileSystem.writeAsStringAsync(previewPath, base64Data, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+      } else {
+        await FileSystem.copyAsync({
+          from: middleFrame.uri,
+          to: previewPath,
+        });
+      }
+
+      return previewPath;
+    } catch (error) {
+      this.handleError(error as Error, 'create video preview');
+      throw error;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { TextInput, Button, HelperText, Card, Title } from "react-native-paper";
 import { TProps } from "./types";
 import { useController } from "./controller";
@@ -19,7 +19,7 @@ export const RouteInputForm = (props: TProps) => {
     <ScrollView style={styles.container}>
       <Card style={styles.card}>
         <Card.Content>
-          <Title>Create New Route</Title>
+          <Text>Create New Route</Text>
 
           <TextInput
             label="Route Name *"

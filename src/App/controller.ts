@@ -10,6 +10,41 @@ export const useController = (props: TAppProps): TController => {
 
   const generateId = () => Math.random().toString(36).substr(2, 9);
 
+  // Create a sample route with 3 pre-generated waypoints for testing
+  useEffect(() => {
+    if (!currentRoute) {
+      const sampleRoute = {
+        id: generateId(),
+        waypoints: [
+          {
+            id: generateId(),
+            coordinate: { latitude: 37.7749, longitude: -122.4194 },
+            name: "San Francisco",
+            timestamp: Date.now(),
+          },
+          {
+            id: generateId(),
+            coordinate: { latitude: 37.6688, longitude: -122.0808 },
+            name: "San Mateo",
+            timestamp: Date.now() + 1000,
+          },
+          {
+            id: generateId(),
+            coordinate: { latitude: 37.4419, longitude: -122.1430 },
+            name: "Palo Alto",
+            timestamp: Date.now() + 2000,
+          },
+        ],
+        metadata: {
+          name: "Bay Area Demo Route",
+          description: "Sample 3-waypoint route through the Bay Area. Edit waypoints as needed.",
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        },
+      };
+      setCurrentRoute(sampleRoute as Route);
+    }
+  }, []);
 
   const handleSaveRoute = (routeData: Partial<Route>) => {
     const newRoute: Route = {

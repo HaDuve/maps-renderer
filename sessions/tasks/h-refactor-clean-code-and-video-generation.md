@@ -7,18 +7,25 @@ started: 2025-09-01
 modules: [App, components, services, types]
 ---
 
-# Clean Code and Enhance Video Generation
+# Three-Screen Waypoint Animation and Video Generation
 
 ## Problem/Goal
-Remove AI-generated code that may be bloated or poorly structured, and enhance the existing Google Maps waypoint animation system to generate proper video outputs. The current codebase has frame capture and video services but needs cleanup and proper video generation functionality.
+Create a focused 3-screen Google Maps waypoint application with clean functionality: (1) waypoint creation/editing, (2) animated route visualization, and (3) video generation with preview.
 
 ## Success Criteria
-- [ ] Remove unnecessary AI-generated code and improve code quality
-- [ ] Refactor existing services to follow clean code principles
-- [ ] Implement proper video generation from Google Maps waypoint animations
-- [ ] Ensure video export functionality works seamlessly
-- [ ] Maintain existing functionality while improving code structure
-- [ ] Add proper error handling and validation
+- [ ] **Screen 1**: Functional waypoint generator with Google Maps integration
+  - [ ] Interactive map for selecting waypoints by tapping
+  - [ ] Add/delete waypoint functionality
+  - [ ] Pre-generated 3-waypoint route on load
+  - [ ] Clean UI for waypoint management
+- [ ] **Screen 2**: Animated travel visualization
+  - [ ] Google Maps view showing smooth animation between all waypoints
+  - [ ] Proper timing and transitions between waypoints
+  - [ ] Clear visual representation of the travel route
+- [ ] **Screen 3**: Video generation and preview
+  - [ ] Generate functioning video from Screen 2's animation
+  - [ ] Show looped video preview of the generated content
+  - [ ] Proper video export functionality
 
 ## Context Files
 <!-- Added by context-gathering agent or manually -->
@@ -166,6 +173,9 @@ const TOTAL_FRAMES_PER_WAYPOINT = 30; // 1 second per waypoint
 
 ## User Notes
 <!-- Any specific notes or requirements from the developer -->
+- **UX is highest priority - always user first**
+- Current codebase is WIP, all code is optional
+- If you find a better way to achieve UX-friendly functionality, ask the user about it
 - Focus on removing bloated AI-generated code
 - Improve the Google Maps waypoint animation to video workflow
 - Maintain existing functionality while cleaning up codebase
@@ -174,3 +184,4 @@ const TOTAL_FRAMES_PER_WAYPOINT = 30; // 1 second per waypoint
 ## Work Log
 <!-- Updated as work progresses -->
 - [2025-09-01] Created task for code cleanup and video generation enhancement
+- [2025-09-02] Rewrote task specification to focus on 3-screen waypoint application workflow

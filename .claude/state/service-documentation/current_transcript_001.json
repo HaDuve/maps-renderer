@@ -1,0 +1,269 @@
+[
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01X3WsRe5urFd7RcwAksUiYu",
+        "type": "tool_result",
+        "content": "Applied 7 edits to /Users/hiono/Documents/GitHub/maps-renderer/sessions/tasks/h-refactor-clean-code-and-video-generation.md:\n1. Replaced \"---\ntask: [prefix]-[descriptive-name]\nbranch: feat...\" with \"---\ntask: h-refactor-clean-code-and-video-generati...\"\n2. Replaced \"# [Human-Readable Title]\" with \"# Clean Code and Enhance Video Generation\"\n3. Replaced \"## Problem/Goal\n[Clear description of what we're s...\" with \"## Problem/Goal\nRemove AI-generated code that may ...\"\n4. Replaced \"## Success Criteria\n- [ ] Specific, measurable out...\" with \"## Success Criteria\n- [ ] Remove unnecessary AI-ge...\"\n5. Replaced \"## Context Files\n<!-- Added by context-gathering a...\" with \"## Context Files\n<!-- Added by context-gathering a...\"\n6. Replaced \"## User Notes\n<!-- Any specific notes or requireme...\" with \"## User Notes\n<!-- Any specific notes or requireme...\"\n7. Replaced \"## Work Log\n<!-- Updated as work progresses -->\n- ...\" with \"## Work Log\n<!-- Updated as work progresses -->\n- ...\""
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "MultiEdit operation feedback:\n- [$CLAUDE_PROJECT_DIR/.claude/hooks/post-tool-use.py]: [DAIC Reminder] When you're done implementing, run: daic\n"
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "thinking",
+        "thinking": "I've successfully created the task file for cleaning up AI-generated code and enhancing video generation. The user is reminding me about the DAIC protocol, but I'm not done yet - I should also run the context-gathering agent as recommended in the protocol to create a comprehensive context manifest for this task.\n\nLet me use the Task tool to invoke the context-gathering agent to analyze the codebase and create a proper context manifest for this task.",
+        "signature": "Eu8ECkYIBxgCKkA1hZLmNoXwH+POHxHu3xYXVcPbdMHqyExJbwsckNslotcpS+X1ACBbqir8BhahyGz/g0rJfe2sclxLc4U/LgDhEgzDJWhQzveBGGZ8/E0aDF/q8oINFtvUVVv0zSIwVjlPaUoGsaT/2skm2aXx/Kk+mZIaFnO1cZ910jyZf8BDxmv64XoIcCWhcKYk6S7CKtYDtvxyFXX0BFlasz43tZVu3wkqdLvcHWol8kXckbnQoZSVPTO/kE+x/7+eQfL5f6KC7poPFvVKm6OBUohLCwisy4eigmE6bs6vuB+GXrNm4E9VBzmvm/YpF1F/7OJiJjQB2tEdHUmGL4mt6Qfc2tNdb4V4pTNcZ5IS/S1/7L/KThdZegNzg0mt7hbZaXB12oO9NYPmMPHJAVyW3ge3+FFeKLm0urOj1PSyNexWLHpzju3MCXVPLWSRgEanLQ5UVSPN8R66XDsFDi2fpfQiFmoq/5LQ2soGfFkqFNKlfJRRk/+FTu8xpJMVXwSsS1aIrpjbIitgCc11RW6ZBX9klX/WiEwErEA/LjTsRX+hXrqlupJJtCPCsG2N8u3eNPOvVqF3MAwWUt1AzxPdSFwackUyjwx2XU6Yh7ggH5jDewjGyi9pTrBeJrKh7KMAwxGJqrvgH+eL0rWKEsVmTfgnsNS9PZUQwE6Yzhz/TVa6MVoB/y8J5hJiOorws9NMvTfNmgG4BzeA+tOd8+cY+n13Mxiyn089sIM6yrKF0xAy0kozdzjO/3SKbwUTcKN18bJjsCcKYEF6cPYtdEYqCudkM1Uold7pO/b1lCI6EDbvNLEng56fPBAT0OYYAQ=="
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_014pzhDCUrD369SKLpeNdzKZ",
+        "name": "Task",
+        "input": {
+          "subagent_type": "context-gathering",
+          "description": "Gather context for task",
+          "prompt": "Please create a comprehensive context manifest for the task file at /Users/hiono/Documents/GitHub/maps-renderer/sessions/tasks/h-refactor-clean-code-and-video-generation.md. This task involves cleaning up AI-generated code and enhancing Google Maps waypoint animation video generation. Analyze the codebase structure, existing services, components, and documentation to provide context for this refactoring and enhancement work."
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "Please create a comprehensive context manifest for the task file at /Users/hiono/Documents/GitHub/maps-renderer/sessions/tasks/h-refactor-clean-code-and-video-generation.md. This task involves cleaning up AI-generated code and enhancing Google Maps waypoint animation video generation. Analyze the codebase structure, existing services, components, and documentation to provide context for this refactoring and enhancement work."
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "I'll analyze the codebase and create a comprehensive context manifest for the task. Let me start by reading the task file and then exploring the codebase structure."
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01E4jUigz2va3SauVwn3h1gT",
+        "name": "Read",
+        "input": {
+          "file_path": "/Users/hiono/Documents/GitHub/maps-renderer/sessions/tasks/h-refactor-clean-code-and-video-generation.md"
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01E4jUigz2va3SauVwn3h1gT",
+        "type": "tool_result",
+        "content": "     1→---\n     2→task: h-refactor-clean-code-and-video-generation\n     3→branch: feature/clean-code-and-video-generation\n     4→status: pending\n     5→created: 2025-09-01\n     6→modules: [App, components, services, types]\n     7→---\n     8→\n     9→# Clean Code and Enhance Video Generation\n    10→\n    11→## Problem/Goal\n    12→Remove AI-generated code that may be bloated or poorly structured, and enhance the existing Google Maps waypoint animation system to generate proper video outputs. The current codebase has frame capture and video services but needs cleanup and proper video generation functionality.\n    13→\n    14→## Success Criteria\n    15→- [ ] Remove unnecessary AI-generated code and improve code quality\n    16→- [ ] Refactor existing services to follow clean code principles\n    17→- [ ] Implement proper video generation from Google Maps waypoint animations\n    18→- [ ] Ensure video export functionality works seamlessly\n    19→- [ ] Maintain existing functionality while improving code structure\n    20→- [ ] Add proper error handling and validation\n    21→\n    22→## Context Files\n    23→<!-- Added by context-gathering agent or manually -->\n    24→- @src/services/VideoRecordingService.ts          # Video recording functionality\n    25→- @src/services/VideoExportService.ts             # Video export functionality  \n    26→- @src/services/FrameCaptureService.ts            # Frame capture service\n    27→- @src/components/VideoExportComponent/           # Video export UI component\n    28→- @src/components/RecordableRouteMap/             # Map recording component\n    29→- @cleancode.md                                   # Code quality guidelines\n    30→\n    31→## User Notes\n    32→<!-- Any specific notes or requirements from the developer -->\n    33→- Focus on removing bloated AI-generated code\n    34→- Improve the Google Maps waypoint animation to video workflow\n    35→- Maintain existing functionality while cleaning up codebase\n    36→- Ensure video generation is robust and user-friendly\n    37→\n    38→## Work Log\n    39→<!-- Updated as work progresses -->\n    40→- [2025-09-01] Created task for code cleanup and video generation enhancement\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "Now let me explore the codebase structure to understand the current implementation and architecture:"
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01VPyvhiVRJy3BsMkq5LzvSV",
+        "name": "Glob",
+        "input": {
+          "pattern": "**/*.json"
+        }
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01GXLBrFrtr8Rpdd9XKaPga2",
+        "name": "Glob",
+        "input": {
+          "pattern": "src/**/*.ts"
+        }
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01SAXqJhFXdRa5xBALRfsNzh",
+        "name": "Glob",
+        "input": {
+          "pattern": "src/**/*.tsx"
+        }
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_012DNtAwHJz58UjYpukCAXG8",
+        "name": "Read",
+        "input": {
+          "file_path": "/Users/hiono/Documents/GitHub/maps-renderer/package.json"
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_012DNtAwHJz58UjYpukCAXG8",
+        "type": "tool_result",
+        "content": "     1→{\n     2→  \"name\": \"maps-renderer\",\n     3→  \"version\": \"1.0.0\",\n     4→  \"main\": \"index.ts\",\n     5→  \"scripts\": {\n     6→    \"start\": \"expo start\",\n     7→    \"android\": \"expo start --android\",\n     8→    \"ios\": \"expo start --ios\",\n     9→    \"web\": \"expo start --web\"\n    10→  },\n    11→  \"dependencies\": {\n    12→    \"@react-native-async-storage/async-storage\": \"^2.2.0\",\n    13→    \"@react-native-community/slider\": \"^5.0.1\",\n    14→    \"expo\": \"~53.0.22\",\n    15→    \"expo-file-system\": \"^18.1.11\",\n    16→    \"expo-location\": \"^18.1.6\",\n    17→    \"expo-media-library\": \"^17.1.7\",\n    18→    \"expo-sharing\": \"^13.1.5\",\n    19→    \"expo-status-bar\": \"~2.2.3\",\n    20→    \"react\": \"19.0.0\",\n    21→    \"react-native\": \"0.79.6\",\n    22→    \"react-native-animatable\": \"^1.4.0\",\n    23→    \"react-native-maps\": \"^1.7.1\",\n    24→    \"react-native-paper\": \"^5.14.5\",\n    25→    \"react-native-reanimated\": \"^3.6.1\",\n    26→    \"react-native-safe-area-context\": \"^5.6.1\",\n    27→    \"react-native-vector-icons\": \"^10.3.0\",\n    28→    \"react-native-view-shot\": \"^4.0.3\",\n    29→    \"react-native-worklets\": \"^0.4.2\"\n    30→  },\n    31→  \"devDependencies\": {\n    32→    \"@babel/core\": \"^7.25.2\",\n    33→    \"@types/react\": \"~19.0.10\",\n    34→    \"babel-plugin-module-resolver\": \"^5.0.2\",\n    35→    \"typescript\": \"~5.8.3\"\n    36→  },\n    37→  \"private\": true\n    38→}\n    39→\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01GXLBrFrtr8Rpdd9XKaPga2",
+        "type": "tool_result",
+        "content": "/Users/hiono/Documents/GitHub/maps-renderer/src/services/VideoExportService.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/services/VideoRecordingService.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/types/Route.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/App/types.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/App/controller.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/App/styles.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/WaypointManager/styles.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/RouteInputForm/styles.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/VideoExportComponent/styles.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/VideoExportComponent/controller.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/VideoExportComponent/types.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/types/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/VideoExportComponent/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/App/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/WaypointManager/controller.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/RouteInputForm/controller.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/RouteInputForm/types.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/WaypointManager/types.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/RouteInputForm/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/WaypointManager/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/services/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/RecordableRouteMap/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/index.ts\n/Users/hiono/Documents/GitHub/maps-renderer/src/services/FrameCaptureService.ts"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01SAXqJhFXdRa5xBALRfsNzh",
+        "type": "tool_result",
+        "content": "/Users/hiono/Documents/GitHub/maps-renderer/src/components/VideoExportComponent/VideoExportComponent.tsx\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/RouteInputForm/RouteInputForm.tsx\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/WaypointManager/WaypointManager.tsx\n/Users/hiono/Documents/GitHub/maps-renderer/src/components/RecordableRouteMap/RecordableRouteMap.tsx\n/Users/hiono/Documents/GitHub/maps-renderer/src/App/App.tsx"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01VPyvhiVRJy3BsMkq5LzvSV",
+        "type": "tool_result",
+        "content": "/Users/hiono/Documents/GitHub/maps-renderer/node_modules/cli-spinners/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@jridgewell/resolve-uri/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/cli-spinners/spinners.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/big-integer/bower.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/big-integer/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/big-integer/tsconfig.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/escalade/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@types/babel__traverse/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@babel/plugin-transform-class-properties/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/bplist-parser/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@babel/plugin-transform-optional-catch-binding/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@react-native/community-cli-plugin/node_modules/debug/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@react-native/community-cli-plugin/node_modules/debug/component.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/caniuse-lite/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/regenerate-unicode-properties/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/semver/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@babel/plugin-transform-classes/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@react-native/community-cli-plugin/node_modules/ms/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/sisteransi/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@isaacs/fs-minipass/dist/commonjs/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@isaacs/fs-minipass/dist/esm/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@isaacs/fs-minipass/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@babel/helper-annotate-as-pure/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/inflight/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/cliui/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/require-directory/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/define-lazy-prop/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/uuid/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/y18n/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/wrappy/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/path-is-absolute/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/sax/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/plist/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/tmpl/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/ieee754/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/buffer/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/sprintf-js/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/sprintf-js/bower.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/concat-map/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/mimic-fn/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/fs.realpath/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/crypto-random-string/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/get-caller-file/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/unicode-property-aliases-ecmascript/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/defaults/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/destroy/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/makeerror/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/imurmurhash/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/async-limiter/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/unicode-canonical-property-names-ecmascript/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/esprima/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/mime/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/isexe/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/depd/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/once/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/etag/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/is-number/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/p-try/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/buffer-from/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/punycode/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/http-errors/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@babel/highlight/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/mime/types.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/metro-cache-key/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/yargs-parser/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/simple-plist/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/thenify/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/webidl-conversions/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/whatwg-fetch/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/acorn/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/jest-haste-map/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/metro-runtime/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/graceful-fs/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@types/istanbul-lib-coverage/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/clone/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@types/yargs/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/jest-regex-util/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@types/babel__core/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/supports-hyperlinks/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@babel/plugin-syntax-bigint/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/babel-plugin-istanbul/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@types/istanbul-lib-report/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@types/yargs-parser/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/fast-json-stable-stringify/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/scheduler/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/fast-json-stable-stringify/benchmark/test.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/minizlib/dist/commonjs/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/minizlib/dist/esm/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/minizlib/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/babel-preset-jest/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/ansi-escapes/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/metro-config/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/regenerator-runtime/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/metro-core/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@types/istanbul-reports/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/promise/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/@jest/transform/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/metro/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/react-devtools-core/package.json\n/Users/hiono/Documents/GitHub/maps-renderer/node_modules/thenify-all/package.json\n(Results are truncated. Consider using a more specific path or pattern.)"
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "text",
+        "text": "Now let me read the key service files and components to understand the current implementation:"
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01D46nBQP4Zsk2XhhMDPxfXc",
+        "name": "Read",
+        "input": {
+          "file_path": "/Users/hiono/Documents/GitHub/maps-renderer/src/services/VideoRecordingService.ts"
+        }
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01QcLSusr3TH73Dd5ZiSxu4h",
+        "name": "Read",
+        "input": {
+          "file_path": "/Users/hiono/Documents/GitHub/maps-renderer/src/services/VideoExportService.ts"
+        }
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_01YTsJebkxqe62eH4pnveFmL",
+        "name": "Read",
+        "input": {
+          "file_path": "/Users/hiono/Documents/GitHub/maps-renderer/src/services/FrameCaptureService.ts"
+        }
+      }
+    ]
+  },
+  {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "toolu_015671v5BkTw46tuKo9rU7ew",
+        "name": "Read",
+        "input": {
+          "file_path": "/Users/hiono/Documents/GitHub/maps-renderer/src/components/RecordableRouteMap/RecordableRouteMap.tsx"
+        }
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01D46nBQP4Zsk2XhhMDPxfXc",
+        "type": "tool_result",
+        "content": "     1→import { captureRef } from \"react-native-view-shot\";\n     2→import * as FileSystem from \"expo-file-system\";\n     3→import * as MediaLibrary from \"expo-media-library\";\n     4→import { Alert } from \"react-native\";\n     5→\n     6→export interface RecordingOptions {\n     7→  fps: number;\n     8→  duration: number; // in seconds\n     9→  quality: number; // 0.0 to 1.0\n    10→  format: \"png\" | \"jpg\";\n    11→}\n    12→\n    13→export interface FrameData {\n    14→  uri: string;\n    15→  timestamp: number;\n    16→  index: number;\n    17→}\n    18→\n    19→export class VideoRecordingService {\n    20→  private frames: FrameData[] = [];\n    21→  private isRecording = false;\n    22→  private recordingOptions: RecordingOptions;\n    23→\n    24→  constructor(options: Partial<RecordingOptions> = {}) {\n    25→    this.recordingOptions = {\n    26→      fps: 30,\n    27→      duration: 10,\n    28→      quality: 0.8,\n    29→      format: \"png\",\n    30→      ...options,\n    31→    };\n    32→  }\n    33→\n    34→  async startRecording(): Promise<void> {\n    35→    if (this.isRecording) {\n    36→      throw new Error(\"Recording already in progress\");\n    37→    }\n    38→\n    39→    this.isRecording = true;\n    40→    this.frames = [];\n    41→    console.log(\"Recording started\");\n    42→  }\n    43→\n    44→  async captureFrame(viewRef: any, frameIndex: number): Promise<void> {\n    45→    if (!this.isRecording) return;\n    46→\n    47→    try {\n    48→      const uri = await captureRef(viewRef, {\n    49→        format: this.recordingOptions.format,\n    50→        quality: this.recordingOptions.quality,\n    51→        result: \"tmpfile\",\n    52→      });\n    53→\n    54→      const frameData: FrameData = {\n    55→        uri,\n    56→        timestamp: Date.now(),\n    57→        index: frameIndex,\n    58→      };\n    59→\n    60→      this.frames.push(frameData);\n    61→      console.log(`Captured frame ${frameIndex + 1}`);\n    62→    } catch (error) {\n    63→      console.error(\"Frame capture failed:\", error);\n    64→      throw error;\n    65→    }\n    66→  }\n    67→\n    68→  async stopRecording(): Promise<FrameData[]> {\n    69→    this.isRecording = false;\n    70→    console.log(`Recording stopped. Captured ${this.frames.length} frames`);\n    71→    return [...this.frames];\n    72→  }\n    73→\n    74→  async createVideoFromFrames(frames: FrameData[]): Promise<string> {\n    75→    // For Expo managed workflow, this would typically require:\n    76→    // 1. Server-side processing with FFmpeg\n    77→    // 2. Or using a third-party service\n    78→    // 3. Or creating a GIF from frames (simpler alternative)\n    79→\n    80→    // Simplified implementation: Create a GIF-like sequence\n    81→    const videoDirectory = FileSystem.documentDirectory + \"videos/\";\n    82→\n    83→    // Ensure directory exists\n    84→    const dirInfo = await FileSystem.getInfoAsync(videoDirectory);\n    85→    if (!dirInfo.exists) {\n    86→      await FileSystem.makeDirectoryAsync(videoDirectory, {\n    87→        intermediates: true,\n    88→      });\n    89→    }\n    90→\n    91→    // For now, create a placeholder image if there are no frames\n    92→    const videoFileName = `route_video_${Date.now()}.png`;\n    93→    const videoPath = videoDirectory + videoFileName;\n    94→\n    95→    if (frames.length > 0) {\n    96→      // Copy first frame as placeholder\n    97→      await FileSystem.copyAsync({\n    98→        from: frames[0].uri,\n    99→        to: videoPath,\n   100→      });\n   101→    } else {\n   102→      // Create a placeholder file for demo purposes\n   103→      const placeholderText =\n   104→        \"This is a placeholder for video recording.\\n\" +\n   105→        \"In a production app, this would be an actual video file.\\n\" +\n   106→        \"Timestamp: \" +\n   107→        new Date().toISOString();\n   108→\n   109→      await FileSystem.writeAsStringAsync(videoPath, placeholderText);\n   110→    }\n   111→\n   112→    return videoPath;\n   113→  }\n   114→\n   115→  async cleanupFrames(frames: FrameData[]): Promise<void> {\n   116→    try {\n   117→      await Promise.all(\n   118→        frames.map((frame) =>\n   119→          FileSystem.deleteAsync(frame.uri, { idempotent: true })\n   120→        )\n   121→      );\n   122→      console.log(\"Cleaned up temporary frame files\");\n   123→    } catch (error) {\n   124→      console.warn(\"Frame cleanup failed:\", error);\n   125→    }\n   126→  }\n   127→\n   128→  getRecordingStats() {\n   129→    return {\n   130→      frameCount: this.frames.length,\n   131→      isRecording: this.isRecording,\n   132→      estimatedDuration: this.frames.length / this.recordingOptions.fps,\n   133→    };\n   134→  }\n   135→}\n   136→\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01QcLSusr3TH73Dd5ZiSxu4h",
+        "type": "tool_result",
+        "content": "     1→import * as MediaLibrary from 'expo-media-library';\n     2→import * as FileSystem from 'expo-file-system';\n     3→import * as Sharing from 'expo-sharing';\n     4→import { Platform, Alert, Linking } from 'react-native';\n     5→\n     6→export class VideoExportService {\n     7→  async requestPermissions(): Promise<boolean> {\n     8→    try {\n     9→      const { status } = await MediaLibrary.requestPermissionsAsync();\n    10→      return status === 'granted';\n    11→    } catch (error) {\n    12→      console.error('Permission request failed:', error);\n    13→      return false;\n    14→    }\n    15→  }\n    16→\n    17→  async saveVideoToGallery(videoUri: string, albumName: string = 'Travel Routes'): Promise<MediaLibrary.Asset> {\n    18→    try {\n    19→      // Check permissions\n    20→      const hasPermissions = await this.requestPermissions();\n    21→      if (!hasPermissions) {\n    22→        throw new Error('Media library permissions not granted');\n    23→      }\n    24→\n    25→      // Download if remote URL\n    26→      let localUri = videoUri;\n    27→      if (videoUri.startsWith('http')) {\n    28→        const filename = `video_${Date.now()}.mp4`;\n    29→        const downloadResult = await FileSystem.downloadAsync(\n    30→          videoUri,\n    31→          FileSystem.documentDirectory + filename\n    32→        );\n    33→        localUri = downloadResult.uri;\n    34→      }\n    35→\n    36→      // Create asset in media library\n    37→      const asset = await MediaLibrary.createAssetAsync(localUri);\n    38→\n    39→      // Create or get album\n    40→      let album = await MediaLibrary.getAlbumAsync(albumName);\n    41→      if (album == null) {\n    42→        await MediaLibrary.createAlbumAsync(albumName, asset, false);\n    43→      } else {\n    44→        await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);\n    45→      }\n    46→\n    47→      return asset;\n    48→    } catch (error) {\n    49→      console.error('Error saving video:', error);\n    50→      throw error;\n    51→    }\n    52→  }\n    53→\n    54→  async shareVideo(videoUri: string): Promise<void> {\n    55→    try {\n    56→      const isAvailable = await Sharing.isAvailableAsync();\n    57→      if (!isAvailable) {\n    58→        throw new Error('Sharing not available on this device');\n    59→      }\n    60→\n    61→      await Sharing.shareAsync(videoUri, {\n    62→        mimeType: 'video/mp4',\n    63→        dialogTitle: 'Share Route Video',\n    64→        UTI: 'public.movie'\n    65→      });\n    66→    } catch (error) {\n    67→      console.error('Sharing failed:', error);\n    68→      throw error;\n    69→    }\n    70→  }\n    71→\n    72→  async getStorageInfo() {\n    73→    try {\n    74→      const totalSpace = await FileSystem.getTotalDiskCapacityAsync();\n    75→      const freeSpace = await FileSystem.getFreeDiskStorageAsync();\n    76→\n    77→      return {\n    78→        totalSpace: Math.round(totalSpace / (1024 * 1024 * 1024)), // GB\n    79→        freeSpace: Math.round(freeSpace / (1024 * 1024 * 1024)), // GB\n    80→        usedPercentage: Math.round(((totalSpace - freeSpace) / totalSpace) * 100)\n    81→      };\n    82→    } catch (error) {\n    83→      console.error('Storage info failed:', error);\n    84→      return null;\n    85→    }\n    86→  }\n    87→\n    88→  handleError(error: Error, operation: string = 'video export') {\n    89→    let userMessage = `Failed to ${operation}. `;\n    90→    let actionRequired = false;\n    91→\n    92→    if (error.message.includes('permission')) {\n    93→      userMessage += 'Please grant media library permissions in settings.';\n    94→      actionRequired = true;\n    95→    } else if (error.message.includes('storage')) {\n    96→      userMessage += 'Not enough storage space available.';\n    97→    } else if (error.message.includes('network')) {\n    98→      userMessage += 'Please check your internet connection.';\n    99→    } else {\n   100→      userMessage += 'Please try again.';\n   101→    }\n   102→\n   103→    const buttons = [{ text: 'OK', style: 'default' as const }];\n   104→\n   105→    if (actionRequired) {\n   106→      buttons.unshift({\n   107→        text: 'Open Settings',\n   108→        onPress: () => Linking.openSettings()\n   109→      } as const);\n   110→    }\n   111→\n   112→    Alert.alert('Error', userMessage, buttons);\n   113→  }\n   114→}\n   115→\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": [
+      {
+        "tool_use_id": "toolu_01YTsJebkxqe62eH4pnveFmL",
+        "type": "tool_result",
+        "content": "     1→import { captureRef } from \"react-native-view-shot\";\n     2→import * as FileSystem from \"expo-file-system\";\n     3→import { useRef, useCallback, useState } from \"react\";\n     4→\n     5→export interface FrameCaptureOptions {\n     6→  fps: number;\n     7→  quality: number; // 0.0 to 1.0\n     8→  format: \"png\" | \"jpg\";\n     9→  width?: number;\n    10→  height?: number;\n    11→}\n    12→\n    13→export interface CapturedFrame {\n    14→  uri: string;\n    15→  index: number;\n    16→  timestamp: number;\n    17→}\n    18→\n    19→export interface FrameCaptureProgress {\n    20→  total: number;\n    21→  current: number;\n    22→  percentage: number;\n    23→}\n    24→\n    25→export interface FrameCaptureState {\n    26→  isCapturing: boolean;\n    27→  capturedFrames: CapturedFrame[];\n    28→  progress: FrameCaptureProgress;\n    29→  error: string | null;\n    30→  tempDirectory: string | null;\n    31→}\n    32→\n    33→export interface FrameCaptureActions {\n    34→  startCapture: (options?: Partial<FrameCaptureOptions>) => Promise<void>;\n    35→  captureFrame: (\n    36→    viewRef: any,\n    37→    index: number,\n    38→    totalFrames: number\n    39→  ) => Promise<CapturedFrame | null>;\n    40→  stopCapture: () => Promise<CapturedFrame[]>;\n    41→  cleanupFrames: () => Promise<void>;\n    42→  exportFrameDirectory: () => Promise<string | null>;\n    43→  getFrameFilesInfo: () => {\n    44→    count: number;\n    45→    directory: string;\n    46→    isCapturing: boolean;\n    47→  };\n    48→}\n    49→\n    50→export interface UseFrameCaptureReturn\n    51→  extends FrameCaptureState,\n    52→    FrameCaptureActions {\n    53→  setProgressCallback: (\n    54→    callback: (progress: FrameCaptureProgress) => void\n    55→  ) => void;\n    56→  updateOptions: (newOptions: Partial<FrameCaptureOptions>) => void;\n    57→}\n    58→\n    59→// Default options for frame capture\n    60→const DEFAULT_FRAME_CAPTURE_OPTIONS: FrameCaptureOptions = {\n    61→  fps: 30,\n    62→  quality: 1.0,\n    63→  format: \"png\",\n    64→  width: 1024,\n    65→  height: 1024,\n    66→};\n    67→\n    68→/**\n    69→ * Custom hook for frame capture functionality\n    70→ * Follows React Native guidelines with functional approach\n    71→ */\n    72→export const useFrameCapture = (\n    73→  initialOptions?: Partial<FrameCaptureOptions>\n    74→): UseFrameCaptureReturn => {\n    75→  // State management using React hooks\n    76→  const [state, setState] = useState<FrameCaptureState>({\n    77→    isCapturing: false,\n    78→    capturedFrames: [],\n    79→    progress: { total: 0, current: 0, percentage: 0 },\n    80→    error: null,\n    81→    tempDirectory: null,\n    82→  });\n    83→\n    84→  // Refs for mutable values that don't trigger re-renders\n    85→  const optionsRef = useRef<FrameCaptureOptions>({\n    86→    ...DEFAULT_FRAME_CAPTURE_OPTIONS,\n    87→    ...initialOptions,\n    88→  });\n    89→  const onProgressCallbackRef = useRef<\n    90→    ((progress: FrameCaptureProgress) => void) | null\n    91→  >(null);\n    92→\n    93→  // Update options\n    94→  const updateOptions = useCallback(\n    95→    (newOptions: Partial<FrameCaptureOptions>) => {\n    96→      optionsRef.current = { ...optionsRef.current, ...newOptions };\n    97→    },\n    98→    []\n    99→  );\n   100→\n   101→  // Set progress callback\n   102→  const setProgressCallback = useCallback(\n   103→    (callback: (progress: FrameCaptureProgress) => void) => {\n   104→      onProgressCallbackRef.current = callback;\n   105→    },\n   106→    []\n   107→  );\n   108→\n   109→  // Initialize frame capture\n   110→  const initialize = useCallback(async (): Promise<void> => {\n   111→    const tempDirectory = `${\n   112→      FileSystem.cacheDirectory\n   113→    }frame_capture_${Date.now()}/`;\n   114→\n   115→    try {\n   116→      const dirInfo = await FileSystem.getInfoAsync(tempDirectory);\n   117→      if (!dirInfo.exists) {\n   118→        await FileSystem.makeDirectoryAsync(tempDirectory, {\n   119→          intermediates: true,\n   120→        });\n   121→      }\n   122→\n   123→      setState((prev) => ({\n   124→        ...prev,\n   125→        tempDirectory,\n   126→        capturedFrames: [],\n   127→        error: null,\n   128→      }));\n   129→    } catch (error) {\n   130→      setState((prev) => ({\n   131→        ...prev,\n   132→        error:\n   133→          error instanceof Error\n   134→            ? error.message\n   135→            : \"Failed to initialize frame capture\",\n   136→      }));\n   137→      throw error;\n   138→    }\n   139→  }, []);\n   140→\n   141→  // Start frame capture\n   142→  const startCapture = useCallback(\n   143→    async (newOptions?: Partial<FrameCaptureOptions>): Promise<void> => {\n   144→      if (state.isCapturing) {\n   145→        throw new Error(\"Frame capture already in progress\");\n   146→      }\n   147→\n   148→      try {\n   149→        // Update options if provided\n   150→        if (newOptions) {\n   151→          updateOptions(newOptions);\n   152→        }\n   153→\n   154→        await initialize();\n   155→\n   156→        setState((prev) => ({\n   157→          ...prev,\n   158→          isCapturing: true,\n   159→          error: null,\n   160→        }));\n   161→\n   162→        console.log(\"Frame capture started\");\n   163→      } catch (error) {\n   164→        console.error(\"Failed to start frame capture:\", error);\n   165→        setState((prev) => ({\n   166→          ...prev,\n   167→          error:\n   168→            error instanceof Error\n   169→              ? error.message\n   170→              : \"Unknown error starting frame capture\",\n   171→        }));\n   172→        throw error;\n   173→      }\n   174→    },\n   175→    [state.isCapturing, initialize, updateOptions]\n   176→  );\n   177→\n   178→  // Capture a single frame\n   179→  const captureFrame = useCallback(\n   180→    async (\n   181→      viewRef: any,\n   182→      index: number,\n   183→      totalFrames: number\n   184→    ): Promise<CapturedFrame | null> => {\n   185→      console.log(`🔍 useFrameCapture.captureFrame called with:`, {\n   186→        index,\n   187→        totalFrames,\n   188→        isCapturing: state.isCapturing,\n   189→        hasViewRef: !!viewRef,\n   190→      });\n   191→\n   192→      if (!state.isCapturing || !state.tempDirectory) {\n   193→        console.log(\"❌ Frame capture conditions not met:\", {\n   194→          isCapturing: state.isCapturing,\n   195→          hasTempDirectory: !!state.tempDirectory,\n   196→        });\n   197→        return null;\n   198→      }\n   199→\n   200→      try {\n   201→        const options = optionsRef.current;\n   202→\n   203→        // Generate a formatted frame number for sequential naming\n   204→        const frameNumber = String(index).padStart(4, \"0\");\n   205→        const fileName = `frame_${frameNumber}.${options.format}`;\n   206→        const filePath = `${state.tempDirectory}${fileName}`;\n   207→\n   208→        console.log(`📁 Saving frame to: ${filePath}`);\n   209→\n   210→        console.log(\n   211→          \"📸 Attempting to capture view with react-native-view-shot...\"\n   212→        );\n   213→        const uri = await captureRef(viewRef, {\n   214→          format: options.format,\n   215→          quality: options.quality,\n   216→          result: \"data-uri\",\n   217→          width: options.width,\n   218→          height: options.height,\n   219→          snapshotContentContainer: false, // Don't use snapshotContentContainer for map views\n   220→        });\n   221→\n   222→        console.log(\n   223→          \"✅ View captured successfully, URI length:\",\n   224→          uri?.length || 0\n   225→        );\n   226→        console.log(\"📸 Frame data preview:\", uri?.substring(0, 50) + \"...\");\n   227→\n   228→        // Save the data URI to file\n   229→        if (uri.startsWith(\"data:\")) {\n   230→          // Extract base64 data from data URI\n   231→          const base64Data = uri.split(\",\")[1];\n   232→          console.log(\"💾 Writing base64 data to file...\");\n   233→\n   234→          await FileSystem.writeAsStringAsync(filePath, base64Data, {\n   235→            encoding: FileSystem.EncodingType.Base64,\n   236→          });\n   237→          console.log(\"💾 File written successfully\");\n   238→        } else {\n   239→          console.log(\n   240→            \"⚠️ URI doesn't start with 'data:', URI:\",\n   241→            uri?.substring(0, 50)\n   242→          );\n   243→        }\n   244→\n   245→        const frame: CapturedFrame = {\n   246→          uri,\n   247→          index,\n   248→          timestamp: Date.now(),\n   249→        };\n   250→\n   251→        // Update state with new frame\n   252→        setState((prev) => {\n   253→          const newCapturedFrames = [...prev.capturedFrames, frame];\n   254→          const newProgress = {\n   255→            total: totalFrames,\n   256→            current: index + 1,\n   257→            percentage: (index + 1) / totalFrames,\n   258→          };\n   259→\n   260→          console.log(\n   261→            `📊 Frame ${index} added to capturedFrames array, total: ${newCapturedFrames.length}`\n   262→          );\n   263→          console.log(`📄 Frame ${index} metadata:`, {\n   264→            index: frame.index,\n   265→            timestamp: frame.timestamp,\n   266→            uriLength: frame.uri?.length || 0,\n   267→          });\n   268→\n   269→          // Report progress via callback if provided\n   270→          if (onProgressCallbackRef.current) {\n   271→            onProgressCallbackRef.current(newProgress);\n   272→          }\n   273→\n   274→          return {\n   275→            ...prev,\n   276→            capturedFrames: newCapturedFrames,\n   277→            progress: newProgress,\n   278→          };\n   279→        });\n   280→\n   281→        console.log(`✅ Frame ${index} captured and processed successfully`);\n   282→        return frame;\n   283→      } catch (error) {\n   284→        console.error(`❌ Failed to capture frame ${index}:`, error);\n   285→        setState((prev) => ({\n   286→          ...prev,\n   287→          error:\n   288→            error instanceof Error\n   289→              ? error.message\n   290→              : \"Unknown error during frame capture\",\n   291→        }));\n   292→        return null;\n   293→      }\n   294→    },\n   295→    [state.isCapturing, state.tempDirectory]\n   296→  );\n   297→\n   298→  // Stop frame capture\n   299→  const stopCapture = useCallback(async (): Promise<CapturedFrame[]> => {\n   300→    if (!state.isCapturing) {\n   301→      return [];\n   302→    }\n   303→\n   304→    setState((prev) => ({\n   305→      ...prev,\n   306→      isCapturing: false,\n   307→    }));\n   308→\n   309→    console.log(\n   310→      `Frame capture completed. Captured ${state.capturedFrames.length} frames`\n   311→    );\n   312→\n   313→    return [...state.capturedFrames];\n   314→  }, [state.isCapturing, state.capturedFrames.length]);\n   315→\n   316→  // Cleanup frames\n   317→  const cleanupFrames = useCallback(async (): Promise<void> => {\n   318→    try {\n   319→      if (state.tempDirectory) {\n   320→        await FileSystem.deleteAsync(state.tempDirectory, { idempotent: true });\n   321→      }\n   322→\n   323→      setState((prev) => ({\n   324→        ...prev,\n   325→        capturedFrames: [],\n   326→        tempDirectory: null,\n   327→      }));\n   328→\n   329→      console.log(\"Cleaned up temporary frame files\");\n   330→    } catch (error) {\n   331→      console.warn(\"Frame cleanup failed:\", error);\n   332→      setState((prev) => ({\n   333→        ...prev,\n   334→        error: error instanceof Error ? error.message : \"Frame cleanup failed\",\n   335→      }));\n   336→    }\n   337→  }, [state.tempDirectory]);\n   338→\n   339→  // Get frame files info\n   340→  const getFrameFilesInfo = useCallback((): {\n   341→    count: number;\n   342→    directory: string;\n   343→    isCapturing: boolean;\n   344→  } => {\n   345→    return {\n   346→      count: state.capturedFrames.length,\n   347→      directory: state.tempDirectory || \"\",\n   348→      isCapturing: state.isCapturing,\n   349→    };\n   350→  }, [state.capturedFrames.length, state.tempDirectory, state.isCapturing]);\n   351→\n   352→  // Export frame directory\n   353→  const exportFrameDirectory = useCallback(async (): Promise<string | null> => {\n   354→    if (!state.tempDirectory || state.capturedFrames.length === 0) {\n   355→      return null;\n   356→    }\n   357→\n   358→    try {\n   359→      // Create a manifest file with information about captured frames\n   360→      const manifestPath = `${state.tempDirectory}manifest.json`;\n   361→      const manifest = {\n   362→        frameCount: state.capturedFrames.length,\n   363→        fps: optionsRef.current.fps,\n   364→        format: optionsRef.current.format,\n   365→        captureDate: new Date().toISOString(),\n   366→        frames: state.capturedFrames.map((frame) => ({\n   367→          index: frame.index,\n   368→          filename: frame.uri.split(\"/\").pop(),\n   369→          timestamp: frame.timestamp,\n   370→        })),\n   371→      };\n   372→\n   373→      await FileSystem.writeAsStringAsync(\n   374→        manifestPath,\n   375→        JSON.stringify(manifest, null, 2)\n   376→      );\n   377→\n   378→      return state.tempDirectory;\n   379→    } catch (error) {\n   380→      console.error(\"Failed to export frame directory:\", error);\n   381→      setState((prev) => ({\n   382→        ...prev,\n   383→        error:\n   384→          error instanceof Error\n   385→            ? error.message\n   386→            : \"Failed to export frame directory\",\n   387→      }));\n   388→      return null;\n   389→    }\n   390→  }, [state.tempDirectory, state.capturedFrames]);\n   391→\n   392→  return {\n   393→    // State\n   394→    ...state,\n   395→\n   396→    // Actions\n   397→    startCapture,\n   398→    captureFrame,\n   399→    stopCapture,\n   400→    cleanupFrames,\n   401→    exportFrameDirectory,\n   402→    getFrameFilesInfo,\n   403→\n   404→    // Additional utilities\n   405→    setProgressCallback,\n   406→    updateOptions,\n   407→  };\n   408→};\n   409→\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+      }
+    ]
+  }
+]
